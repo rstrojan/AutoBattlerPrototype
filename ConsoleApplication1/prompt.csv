@@ -1,0 +1,57 @@
+Q1.PROMPT,What is your name?
+Q1.TYPE,written
+Q1.VALIDATION,\w+
+Q1.INVALIDRESPONSE,Please enter your name.
+Q2.PROMPT,What is your quest?
+Q2.TYPE,multi
+Q2.VALIDATION,1
+Q2.INVALIDRESPONSE,No it isn't! Try again!
+Q2.CHOICE,To find the holy grail!
+Q2.CHOICE,To save the princess!
+Q2.CHOICE,To gain fame and glory!
+STARTMENU.PROMPT,Welcome to Damsel: Automation Empire!!
+STARTMENU.TYPE,multi
+STARTMENU.CHOICE,New Game
+CAMPAIGNPREPLOOP.PROMPT,Prepare for your campaign.
+CAMPAIGNPREPLOOP.TYPE,multi
+CAMPAIGNPREPLOOP.CHOICE,Choose equipment
+CAMPAIGNPREPLOOP.CHOICE,Choose consumables
+CAMPAIGNPREPLOOP.CHOICE,Set your vanguard
+CAMPAIGNPREPLOOP.CHOICE,Set your reinforcements
+CAMPAIGNPREPLOOP.CHOICE,Start campaign
+CHOOSEEQUIPMENT.PROMPT,Choose an equipment.
+CHOOSEEQUIPMENT.TYPE,multi
+CHOOSEEQUIPMENT.CHOICE,Sword
+CHOOSEEQUIPMENT.CHOICE,Spear
+CHOOSEEQUIPMENT.CHOICE,Shield
+CHOOSECONSUMABLE.PROMPT,Choose a consumable.
+CHOOSECONSUMABLE.Type,multi
+CHOOSECONSUMABLE.CHOICE,Hearty Meal
+CHOOSECONSUMABLE.CHOICE,Hard Tack
+SETVANGUARD.PROMPT,Choose units for your starting lineup.
+SETVANGUARD.TYPE,multi
+SETVANGUARD.CHOICE,Field Mouse
+SETVANGUARD.CHOICE,Song Bird
+SETREINFORCEMENTS.PROMPT,Choose units for your reinforcements.
+SETREINFORCEMENTS.TYPE,multi
+SETREINFORCEMENTS.CHOICE,Field Mouse
+SETREINFORCEMENTS.CHOICE,Song Bird
+HOWMANY.PROMPT,How many?
+HOWMANY.TYPE,written
+PRECOMBAT.PROMPT,Choose an option below.
+PRECOMBAT.CHOICE,Swap Units
+PRECOMBAT.CHOICE,Equip Units
+PRECOMBAT.CHOICE,Feed Units
+PRECOMBAT.CHOICE,Choose next battle
+PRECOMBAT.CHOICE,Save and quit
+SWAPUNITS01.PROMPT,Choose an option below.
+SWAPUNITS01.CHOICE,Swap two vanguard units
+SWAPUNITS01.CHOICE,Swap vanguard and reinforcement
+SWAPUNITS02.PROMPT,Enter positions of the units separated by a space.(e.g.:1 2)
+EQUIPUNITS01.PROMPT,Enter the unit # and the equipment # separated by a space.(e.g.:1 1)
+FEEDUNITS01.PROMPT,Enter the unit # and the food # separated by a space.(e.g.:1 1)
+CHOOSENODE.PROMPT,Please choose the next battle.
+POSTCOMBAT.PROMPT,You won the battle! Please choose a reward:
+POSTCOMBAT.CHOICE,Loot equipment
+POSTCOMBAT.CHOICE,Loot consumable
+POSTCOMBAT.CHOICE,Recruit unit
