@@ -33,15 +33,18 @@ class PrntScrn
 PrntScrn::PrntScrn()
 {
 	linebreak.assign( 80, '~');
-	slotWidth = 15;
+	slotWidth = 15; //Should this be an enum?
 	
 }
 
+//basic print function
 void PrntScrn::print(std::string str)
 {
 	std::cout << str;
 }
 
+//clears console, reprints slots, and then
+//prints str
 void PrntScrn::clearAndPrint(std::string str)
 {
 	system("CLS");
@@ -50,18 +53,21 @@ void PrntScrn::clearAndPrint(std::string str)
 	return;
 }
 
+//prints the slots to console
 void PrntScrn::printHud()
 {
-	std::cout << linebreak << '\n';
-	//load the maps to string vectos.
 
+	//load the maps to string vectos.
 	std::vector <std::string> formattedSlotOne = formatSlot(slotOne);
 	std::vector <std::string> formattedSlotTwo = formatSlot(slotTwo);
 	std::vector <std::string> formattedSlotThree = formatSlot(slotThree);
 	std::vector <std::string> formattedSlotFour = formatSlot(slotFour);
 	std::vector <std::string> formattedSlotFive = formatSlot(slotFive);
+	
+	//Top line of slot hud
+	std::cout << linebreak << '\n';
 
-
+	//loop over the maps and print in slot format
 	for (int i = 0; i < 10; i++)
 	{
 		std::string buff;
@@ -112,13 +118,16 @@ void PrntScrn::printHud()
 
 		std::cout << '\n';
 	}
-
+	
+	//bottom line of slot hud.
 	std::cout << linebreak << '\n';
+
 	return;
 }
 
 
-
+//Takes a pointer to a map and turns it into 1D array of 
+//formatted strings that are ready to print.
 std::vector<std::string> PrntScrn::formatSlot(std::map<std::string, std::string> *map)
 {
 	std::vector <std::string> formatted;
@@ -133,6 +142,8 @@ std::vector<std::string> PrntScrn::formatSlot(std::map<std::string, std::string>
 	return formatted;
 }
 
+//Takes a reference to a map of string key/value pairs
+//and assigns it a pointer for the given slot number
 void PrntScrn::assignSlot(int slotNumber, std::map<std::string, std::string>& map)
 {
 	if (slotNumber == 1)
