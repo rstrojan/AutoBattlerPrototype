@@ -40,6 +40,9 @@ std::string Prompt::ask(std::string promptID, std::string validationCriteriaOver
 			entryFoundFlag = true;
 			continue;
 		}
+		//I should put in an escape clause here
+		//for when the Prompt is full instead of
+		//checking the full file.
 	}
 	try
 	{
@@ -55,7 +58,7 @@ std::string Prompt::ask(std::string promptID, std::string validationCriteriaOver
 	//Don't forget to close the file.
 	f.close();
 
-	//Check for overrides
+	//Check for overrides (I debate making these pointers instead of "NULL" string literals)
 	if (validationCriteriaOverride != "NULL")
 		validationCriteria = validationCriteriaOverride;
 	if (choicesOverride[0] != "NULL")
@@ -65,7 +68,7 @@ std::string Prompt::ask(std::string promptID, std::string validationCriteriaOver
 	std::cout << promptText << '\n';
 
 	//Start the input validation loop
-	bool isValid = false; //to hold the validation result
+	bool isValid = false; 
 	do
 	{
 		//if multi, print out choices
@@ -80,7 +83,7 @@ std::string Prompt::ask(std::string promptID, std::string validationCriteriaOver
 		std::cout << "> ";
 		std::getline(std::cin, input);
 
-		//prep to check input
+		//prep to check input and exit
 		std::smatch inputMatch;
 		std::regex validationRegex(validationCriteria);
 		std::regex exitCheckRegex("[eE][xX][iI][tT]");
@@ -91,7 +94,6 @@ std::string Prompt::ask(std::string promptID, std::string validationCriteriaOver
 		}
 		else if(std::regex_match(input,inputMatch,validationRegex))
 			isValid = true;
-
 		if (isValid == false)
 		{
 			std::cout << invalidResponse << '\n';
