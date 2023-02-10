@@ -16,7 +16,8 @@ class PrntScrn
 	std::map<std::string, std::string> *slotThree;
 	std::map<std::string, std::string> *slotFour;
 	std::map<std::string, std::string> *slotFive;
-	int slotWidth;
+	const std::map<std::string, std::string> blankMap = {{"",""}};
+	const int slotWidth = 15;
 
 	public:
 	PrntScrn();
@@ -32,8 +33,13 @@ class PrntScrn
 
 PrntScrn::PrntScrn()
 {
+	
 	linebreak.assign( 80, '~');
-	slotWidth = 15; //Should this be an enum?
+	assignSlot(1, blankMap);
+	assignSlot(2, blankMap);
+	assignSlot(3, blankMap);
+	assignSlot(4, blankMap);
+	assignSlot(5, blankMap);
 	
 }
 
@@ -57,7 +63,7 @@ void PrntScrn::clearAndPrint(std::string str)
 void PrntScrn::printHud()
 {
 
-	//load the maps to string vectos.
+	//load the maps to string vectors.
 	std::vector <std::string> formattedSlotOne = formatSlot(slotOne);
 	std::vector <std::string> formattedSlotTwo = formatSlot(slotTwo);
 	std::vector <std::string> formattedSlotThree = formatSlot(slotThree);
