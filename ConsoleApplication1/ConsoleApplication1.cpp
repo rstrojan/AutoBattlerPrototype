@@ -31,15 +31,14 @@ void mockUp()
 
     //prep for displaying the screen:
     std::map<std::string, std::string> reinforcements = { {"title","Reinforcements"} };
-    std::map<std::string, std::string> vanguard = { {"title","Vanguard"},{"Field Mice","5"} };
-    std::map<std::string, std::string> equipment = { {"title","Equipment"},{"Spear","5"},{"Sword","3"} }; 
+    std::map<std::string, std::string> vanguard = { {"title","Vanguard"} };
+    std::map<std::string, std::string> equipment = { {"title","Equipment"} }; 
     std::map<std::string, std::string> consumables = { {"title","Consumable"} };
-    std::map<std::string, std::string> tempMap = { {"title","Inventory"}, {"Spears","0"}};
+
     ps.assignSlot(1, equipment);
     ps.assignSlot(2, vanguard);
     ps.assignSlot(3, consumables);
     ps.assignSlot(4, reinforcements);
-    ps.assignSlot(5,tempMap);
 
     //First let's have them choose some equipment
     ps.clearAndPrint("*****First, choose equipment.\n\n");
