@@ -8,6 +8,9 @@ Inventory::Inventory(std::string name)
 	updateDetailedChoiceVector();
 }
 
+//Adds a pointer to an obj quantity times.
+//Note that this adds multiple pointers to the same obj
+// not new objs.
 void Inventory::addItem(GameObject* obj, int quantity)
 {
 	for (int i = 0; i < quantity; i++)
@@ -18,6 +21,7 @@ void Inventory::addItem(GameObject* obj, int quantity)
 	return;
 }
 
+//Remove a Game Object, based on obj pointer.
 void Inventory::removeItem(GameObject* obj)
 {
 	for (auto i = begin(inv); i != end(inv);)
@@ -34,6 +38,7 @@ void Inventory::removeItem(GameObject* obj)
 	return;
 }
 
+//Remove a Game Object based on the "name" property of the obj.
 void Inventory::removeItem(std::string itemName)
 {
 	for (auto i = begin(inv); i != end(inv);)
@@ -50,10 +55,14 @@ void Inventory::removeItem(std::string itemName)
 	return;
 }
 
+//Creates or Updates a Quantity Map, which is a map<string, string>
+// where the key is an obj name and the value is the number of 
+// instances of that obj in the given inventory. The value is kept as
+// a string so that it is easy to pass into a PrntScrn slot.
 void Inventory::updateQuantityMap()
 {
 	quantityMap.clear();
-	quantityMap["title"] = name;
+	quantityMap["title"] = name; //name of the inventory
 
 	for (auto const& item : inv)
 	{
@@ -71,6 +80,9 @@ void Inventory::updateQuantityMap()
 	return;
 }
 
+//Takes string matching a GameObject name or choiceDetailString, and searches for it in the 
+// fromInv. If found, it adds a copy of the pointer to the toInv and then
+// removes the pointer from the fromInv.
 void Inventory::transferItem(std::string itemName,
 	Inventory& fromInv, Inventory& toInv)
 {
@@ -94,12 +106,16 @@ void Inventory::transferItem(std::string itemName,
 	return;
 }
 
+//Returns a detailedChoiceVector of strings for use with the Prompt
+// class. Each string equates to a GameObject in the inv and some of
+// it's key details based on that GameObjects choiceDetailString.
 std::vector<std::string>& Inventory::getDetailedChoiceVector()
 {
 	updateDetailedChoiceVector();
 	return detailedChoiceVector;
 }
 
+//Creates or updates a detailedChoiceVector of strings for use with the Prompt class.
 void Inventory::updateDetailedChoiceVector()
 {
 	detailedChoiceVector.clear();
@@ -109,12 +125,16 @@ void Inventory::updateDetailedChoiceVector()
 	}
 }
 
+//Returns a quantityChoiceVector of strings for use with the Prompt
+// class. Each string equates to a different GameObject "name" and the value
+// equates to the number of instances of objs that share that name.
 std::vector<std::string>& Inventory::getQuantityChoiceVector()
 {
 	updateQuantityChoiceVector();
 	return quantityChoiceVector;
 }
 
+//Creates or updates a quantityChoiceVector of strings for use with the Prompt class.
 void Inventory::updateQuantityChoiceVector()
 {
 	quantityChoiceVector.clear();
@@ -126,7 +146,7 @@ void Inventory::updateQuantityChoiceVector()
 	} 
 }
 
-//returns a list of detail maps based on the objs in inv. The 'title' of the detail map
+//Returns a list of detail maps based on the objs in inv. The 'title' of the detail map
 //will be overwritten with a value indicating it's position
 std::vector<std::map<std::string, std::string>>& Inventory::getSlotDetailMaps()
 {
@@ -134,6 +154,8 @@ std::vector<std::map<std::string, std::string>>& Inventory::getSlotDetailMaps()
 	return slotDetailMaps;
 }
 
+//Creates or updates a list of detail maps based on the objs in the inv.
+// This where the 'title' of the detail map will be overwritten with position data
 void Inventory::updateSlotDetailMaps()
 {
 	slotDetailMaps.clear();
