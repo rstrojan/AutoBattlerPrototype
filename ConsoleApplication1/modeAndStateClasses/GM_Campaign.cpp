@@ -2,6 +2,7 @@
 
 GM_Campaign::GM_Campaign() {};
 
+//DEPRECATED - Please use chooseFromQuantityInv or chooseFromDetailInv
 void GM_Campaign::chooseFromInv(std::string promptKey, std::map <std::string, std::string> &fromInv, std::map <std::string, std::string> &toInv)
 {
     Prompt tempPrompt;
@@ -93,12 +94,14 @@ void GM_Campaign::chooseFromDetailInv(std::string promptKey, Inventory& fromInv,
     return;
 }
 
-
+//DEPRECATED
 void GM_Campaign::chooseUnit(std::vector<std::string> fromInv, std::vector<std::string> toInv)
 {
 	return;
 }
 
+//This is temporarily overloaded with functionality that will be removed.
+//The welcome prompt and instantiations will be removed.
 void GM_Campaign::prepLoop()
 {
     Prompt userPrompt;
