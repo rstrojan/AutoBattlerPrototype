@@ -139,6 +139,8 @@ void PrntScrn::assignSlot(int slotNumber, std::map<std::string, std::string>& ma
 	return;
 }
 
+//Takes a list of maps and assigns them to the PrntScrn slots in
+//order from left to right.
 void PrntScrn::assignSlots(std::vector<std::map<std::string, std::string>>& maps)
 {
 	int slotNum = 1;
