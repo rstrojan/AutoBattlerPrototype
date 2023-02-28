@@ -5,7 +5,10 @@ Prompt::Prompt()
 	entryFoundFlag = false;
 	input = "";
 }
-
+//Takes promptId and uses it to find a correlating Prompt entry.
+//The prompt is parsed from the file and presented to the user.
+//Once the user input is validated, the input is returned.
+//In multi type questions, the string value (not numerical value) is returned.
 //You can skip the optional validationCriteriaOverride by setting it's value to "NULL"
 std::string Prompt::ask(std::string promptID, std::string validationCriteriaOverride, std::vector<std::string> choicesOverride)
 {
@@ -164,12 +167,14 @@ void Prompt::storeMatch(std::string str, std::string &validationCriteriaOverride
 	return;
 }
 
+//Returns the latest input from the user.
 std::string Prompt::getInput()
 {
-
 	return input;
 }
 
+//Clears all data from the Prompt so it can be resused
+// without worrying about artifacts from previous uses.
 void Prompt::clearPrompt()
 {
 	promptKey = "";
