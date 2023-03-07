@@ -4,8 +4,76 @@
 Inventory::Inventory(std::string name)
 {
 	this->name = name;
+	maxSize = NULL;
 	updateQuantityMap();
 	updateDetailedChoiceVector();
+}
+
+Inventory::Inventory(std::string name, int maxSize)
+{
+	setMaxSize(maxSize);
+	this->name = name;
+	updateQuantityMap();
+	updateDetailedChoiceVector();
+}
+
+//returns true if maxSize is set
+bool Inventory::hasMaxSize()
+{
+	if (maxSize == NULL)
+		return false;
+	else
+		return true;
+}
+
+//returns true if the inv is empty, else returns false
+bool Inventory::isEmpty()
+{
+	if (inv.size() == 0)
+		return true;
+	else
+		return false;
+}
+
+//returns true if the inv is full, else returns false
+bool Inventory::isFull()
+{
+	if (maxSize != NULL)
+	{
+		if (inv.size() == maxSize)
+			return true;
+		else
+			return false;
+	}
+	return false;
+}
+
+
+//sets maxSize to size, and hasMaxSize to true
+//returns maxSize
+int Inventory::setMaxSize(int size)
+{
+	maxSize = size;
+	return maxSize;
+}
+
+//returns the maxSize of the inventory
+int Inventory::getMaxSize()
+{
+	return maxSize;
+}
+
+//returns current size of the inventory
+int Inventory::getCurrSize()
+{
+	return inv.size();
+}
+
+//sets maxSize to NULL
+void Inventory::clearSize()
+{
+	maxSize = NULL;
+	return;
 }
 
 //Adds a pointer to an obj quantity times.
@@ -13,7 +81,7 @@ Inventory::Inventory(std::string name)
 // not new objs.
 void Inventory::addItem(GameObject* obj, int quantity)
 {
-	for (int i = 0; i < quantity; i++)
+	for (int i = 0; i < quantity && !isFull(); i++)
 	{
 		inv.push_back(obj);
 	}
@@ -24,16 +92,19 @@ void Inventory::addItem(GameObject* obj, int quantity)
 //Remove a Game Object, based on obj pointer.
 void Inventory::removeItem(GameObject* obj)
 {
-	for (auto i = begin(inv); i != end(inv);)
+	if (!isEmpty())
 	{
-		if (*i == obj)
+		for (auto i = begin(inv); i != end(inv);)
 		{
-			i = inv.erase(i);
-			updateQuantityMap();
-			return;
+			if (*i == obj)
+			{
+				i = inv.erase(i);
+				updateQuantityMap();
+				return;
+			}
+			else
+				++i;
 		}
-		else
-			++i;
 	}
 	return;
 }
@@ -41,16 +112,48 @@ void Inventory::removeItem(GameObject* obj)
 //Remove a Game Object based on the "name" property of the obj.
 void Inventory::removeItem(std::string itemName)
 {
-	for (auto i = begin(inv); i != end(inv);)
+	if (!isEmpty())
 	{
-		if ((*i)->name == itemName)
+		for (auto i = begin(inv); i != end(inv);)
 		{
-			i = inv.erase(i);
-			updateQuantityMap();
-			return;
+			if ((*i)->name == itemName)
+			{
+				i = inv.erase(i);
+				updateQuantityMap();
+				return;
+			}
+			else
+				++i;
 		}
-		else
-			++i;
+	}
+	return;
+}
+
+//Takes string matching a GameObject name or choiceDetailString, and searches for it in the 
+// fromInv. If found, it adds a copy of the pointer to the toInv and then
+// removes the pointer from the fromInv.
+void Inventory::transferItem(std::string itemName,
+	Inventory& fromInv, Inventory& toInv)
+{
+	if (!toInv.isFull() && !fromInv.isEmpty())
+	{
+		for (auto i = begin(fromInv.inv); i != end(fromInv.inv);)
+		{
+			if ((*i)->name == itemName)
+			{
+				toInv.addItem(*i);
+				fromInv.removeItem(*i);
+				return;
+			}
+			else if ((*i)->getChoiceDetailString() == itemName)
+			{
+				toInv.addItem(*i);
+				fromInv.removeItem(*i);
+				return;
+			}
+			else
+				++i;
+		}
 	}
 	return;
 }
@@ -80,31 +183,6 @@ void Inventory::updateQuantityMap()
 	return;
 }
 
-//Takes string matching a GameObject name or choiceDetailString, and searches for it in the 
-// fromInv. If found, it adds a copy of the pointer to the toInv and then
-// removes the pointer from the fromInv.
-void Inventory::transferItem(std::string itemName,
-	Inventory& fromInv, Inventory& toInv)
-{
-	for (auto i = begin(fromInv.inv); i != end(fromInv.inv);)
-	{
-		if ((*i)->name == itemName)
-		{
-			toInv.addItem(*i);
-			fromInv.removeItem(*i);
-			return;
-		}
-		else if ((*i)->getChoiceDetailString() == itemName)
-		{
-			toInv.addItem(*i);
-			fromInv.removeItem(*i);
-			return;
-		}
-		else
-			++i;
-	}
-	return;
-}
 
 //Returns a detailedChoiceVector of strings for use with the Prompt
 // class. Each string equates to a GameObject in the inv and some of

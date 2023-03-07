@@ -15,6 +15,7 @@ public:
 
 public:
 	Inventory(std::string name);
+	Inventory(std::string name, int maxSize);
 	void addItem(GameObject* obj, int quantity = 1);
 	void removeItem(GameObject* obj);
 	void removeItem(std::string itemName);
@@ -22,9 +23,16 @@ public:
 	std::vector<std::string>& getDetailedChoiceVector();
 	std::vector<std::string>& getQuantityChoiceVector();
 	std::vector<std::map<std::string, std::string>>& getSlotDetailMaps();
-
+	bool isEmpty();
+	bool isFull();
+	bool hasMaxSize();
+	int setMaxSize(int size);
+	int getMaxSize();
+	int getCurrSize();
+	void clearSize();
 
 private:
+	int maxSize;
 	std::vector<std::string> detailedChoiceVector;
 	std::vector<std::string> quantityChoiceVector;
 	std::vector<std::map<std::string, std::string>> slotDetailMaps;

@@ -52,23 +52,33 @@ void GM_Campaign::chooseFromInv(std::string promptKey, std::map <std::string, st
 //toInv.
 void GM_Campaign::chooseFromQuantityInv(std::string promptKey, Inventory& fromInv, Inventory& toInv)
 {
-    Prompt tempPrompt;
     PrntScrn tempScrn;
-    tempScrn.assignSlot(1, fromInv.quantityMap);
-    tempScrn.assignSlot(3, toInv.quantityMap);
-    tempScrn.clearAndPrint("");
-    std::vector<std::string> fromInvChoices = fromInv.getQuantityChoiceVector();
+    if (!fromInv.isEmpty())
+    {
+        Prompt tempPrompt;
+        tempScrn.assignSlot(1, fromInv.quantityMap);
+        tempScrn.assignSlot(3, toInv.quantityMap);
+        std::map<std::string, std::string> tempMap = { {"title","Ryan"},{"1","ABC_+_123"},{"2",">>>>X<<<<"} };
+        tempScrn.assignSlot(2, tempMap, true);
+        tempScrn.clearAndPrint("");
+        std::vector<std::string> fromInvChoices = fromInv.getQuantityChoiceVector();
 
-    //first have the player pick the item and store the selection
-    std::string selection =  tempPrompt.ask(promptKey, "NULL", fromInvChoices);
+        //first have the player pick the item and store the selection
+        std::string selection = tempPrompt.ask(promptKey, "NULL", fromInvChoices);
 
-    //pick the quantity and validate
-    do { tempPrompt.ask("HOWMANY", "\\d+"); } 
-    while (0 > (stoi(fromInv.quantityMap[selection]) - stoi(tempPrompt.getInput())));
-    
-    //call transfer a number of times equal to the entered quantity
-    for (int i = 0; i < std::stoi(tempPrompt.getInput()); i++)
-        Inventory::transferItem(selection, fromInv, toInv);
+        //pick the quantity and validate
+        do { tempPrompt.ask("HOWMANY", "\\d+"); } while (0 > (stoi(fromInv.quantityMap[selection]) - stoi(tempPrompt.getInput())));
+
+        //call transfer a number of times equal to the entered quantity
+        for (int i = 0; i < std::stoi(tempPrompt.getInput()); i++)
+            Inventory::transferItem(selection, fromInv, toInv);
+    }
+    else
+    {
+        tempScrn.print("The inventory you are trying to select from is empty.\n");
+        system("pause");
+    }
+
 
     return;
 }
@@ -78,18 +88,27 @@ void GM_Campaign::chooseFromQuantityInv(std::string promptKey, Inventory& fromIn
 //Detailed view of the toInv is displayed in the slots.
 void GM_Campaign::chooseFromDetailInv(std::string promptKey, Inventory& fromInv, Inventory& toInv)
 {
-    Prompt tempPrompt;
     PrntScrn tempScrn;
+    if (!fromInv.isEmpty())
+    {
+        Prompt tempPrompt;
 
-    tempScrn.assignSlots(toInv.getSlotDetailMaps());
-    tempScrn.clearAndPrint("");
-    std::vector<std::string> fromInvChoices = fromInv.getDetailedChoiceVector();
+        tempScrn.assignSlots(toInv.getSlotDetailMaps(), true);
+        tempScrn.clearAndPrint("");
+        std::vector<std::string> fromInvChoices = fromInv.getDetailedChoiceVector();
 
-    //first have the player pick the item and store the selection
-    std::string selection = tempPrompt.ask(promptKey, "NULL", fromInvChoices);
+        //first have the player pick the item and store the selection
+        std::string selection = tempPrompt.ask(promptKey, "NULL", fromInvChoices);
 
-    //call transfer
-    Inventory::transferItem(selection, fromInv, toInv);
+        //call transfer
+        Inventory::transferItem(selection, fromInv, toInv);
+    }
+    else
+    {
+        tempScrn.print("The inventory you are trying to select from is empty.\n");
+        system("pause");
+    }
+
 
     return;
 }
@@ -140,10 +159,14 @@ void GM_Campaign::prepLoop()
         GameObject mouse02("Ryan");
         GameObject mouse03("Thom");
         GameObject mouse04("Doug");
+        GameObject mouse05("Sheryl");
+        GameObject mouse06("Bonnie");
         unitInv.addItem(&mouse01);
         unitInv.addItem(&mouse02);
         unitInv.addItem(&mouse03);
         unitInv.addItem(&mouse04);
+        unitInv.addItem(&mouse05);
+        unitInv.addItem(&mouse06);
 
         ps.assignSlot(1, p.equipmentInv.quantityMap);
         ps.assignSlot(2, p.consumableInv.quantityMap);

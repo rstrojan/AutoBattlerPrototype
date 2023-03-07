@@ -14,7 +14,7 @@ public:
 	std::vector <std::string> playerUnitInv;
 	Inventory equipmentInv = Inventory("My Equipment");
 	Inventory consumableInv = Inventory("My Consumables");
-	Inventory vanguard = Inventory("Vanguard");
+	Inventory vanguard = Inventory("Vanguard", 5);
 	Inventory reinforcements = Inventory("Reinforcements");
 
 	Player(std::string name);
