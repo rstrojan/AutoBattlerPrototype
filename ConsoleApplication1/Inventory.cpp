@@ -79,7 +79,7 @@ void Inventory::clearSize()
 //Adds a pointer to an obj quantity times.
 //Note that this adds multiple pointers to the same obj
 // not new objs.
-void Inventory::addItem(GameObject* obj, int quantity)
+void Inventory::addItem(std::shared_ptr<GameObject> obj, int quantity)
 {
 	for (int i = 0; i < quantity && !isFull(); i++)
 	{
@@ -90,7 +90,7 @@ void Inventory::addItem(GameObject* obj, int quantity)
 }
 
 //Remove a Game Object, based on obj pointer.
-void Inventory::removeItem(GameObject* obj)
+void Inventory::removeItem(std::shared_ptr<GameObject> obj)
 {
 	if (!isEmpty())
 	{
