@@ -2,51 +2,6 @@
 
 GM_Campaign::GM_Campaign() {};
 
-//DEPRECATED - Please use chooseFromQuantityInv or chooseFromDetailInv
-void GM_Campaign::chooseFromInv(std::string promptKey, std::map <std::string, std::string> &fromInv, std::map <std::string, std::string> &toInv)
-{
-    Prompt tempPrompt;
-    PrntScrn tempScrn;
-    tempScrn.assignSlot(1, fromInv);
-    tempScrn.assignSlot(3, toInv);
-
-    //first have the player pick the item
-    std::vector<std::string> fromInvChoices;
-    for (auto const& x : fromInv)
-    {
-        if (x.first != "title")
-            fromInvChoices.push_back(x.first);
-    }
-
-    do { tempPrompt.ask(promptKey, "\\d+", fromInvChoices); } 
-    while (stoi(tempPrompt.getInput()) <= 0 || stoi(tempPrompt.getInput()) > fromInvChoices.size());
-    std::string selectionKey = fromInvChoices[stoi(tempPrompt.getInput()) - 1];
-
-    //then have them pick the quantity
-    do { tempPrompt.ask("HOWMANY", "\\d+"); }
-    while (0 > ( stoi( fromInv[selectionKey] ) - stoi( tempPrompt.getInput() ) ) );
-    auto item = toInv.find(selectionKey);
-
-    if (item == toInv.end())
-    {
-        toInv[selectionKey] = tempPrompt.getInput();
-    }
-    else
-    {
-        int initialVal = stoi(toInv[selectionKey]);
-        int newVal = stoi(tempPrompt.getInput()) + initialVal;
-        toInv[selectionKey] = std::to_string(newVal);
-    }
-
-    int initialVal = stoi(fromInv[selectionKey]);
-    int newVal = initialVal - stoi(tempPrompt.getInput());
-
-    fromInv[selectionKey] = std::to_string(newVal);
-
-
-	return;
-}
-
 //Prompts via a promptKey lookup and provides a list of choices from the fromInv,
 //then allows user to set how much of their selection to be transferred to the 
 //toInv.
@@ -58,8 +13,6 @@ void GM_Campaign::chooseFromQuantityInv(std::string promptKey, Inventory& fromIn
         Prompt tempPrompt;
         tempScrn.assignSlot(1, fromInv.quantityMap);
         tempScrn.assignSlot(3, toInv.quantityMap);
-        std::map<std::string, std::string> tempMap = { {"title","Ryan"},{"1","ABC_+_123"},{"2",">>>>X<<<<"} };
-        tempScrn.assignSlot(2, tempMap, true);
         tempScrn.clearAndPrint("");
         std::vector<std::string> fromInvChoices = fromInv.getQuantityChoiceVector();
 
@@ -110,12 +63,6 @@ void GM_Campaign::chooseFromDetailInv(std::string promptKey, Inventory& fromInv,
     }
 
 
-    return;
-}
-
-//DEPRECATED
-void GM_Campaign::chooseUnit(std::vector<std::string> fromInv, std::vector<std::string> toInv)
-{
 	return;
 }
 
@@ -137,36 +84,10 @@ void GM_Campaign::prepLoop()
         userPrompt.ask("STARTMENU", "New Game");
     
 
-        //prep for displaying the screen:
+        //construct player and game state
         Player p("Player One");
+        GS_Campaign gs;
 
-        Inventory equipmentInv("Equipment");
-        GameObject sword("Sword");
-        GameObject spear("Spear");
-        GameObject shield("Shield");
-        equipmentInv.addItem(&sword, 8);
-        equipmentInv.addItem(&spear, 8);
-        equipmentInv.addItem(&shield, 8);
-
-        Inventory consumableInv("Consumables");
-        GameObject heartyMeal("Hearty Meal");
-        GameObject quickSnack("Quick Snack");
-        consumableInv.addItem(&heartyMeal, 20);
-        consumableInv.addItem(&quickSnack, 20);
-
-        Inventory unitInv("Units");
-        GameObject mouse01("James");
-        GameObject mouse02("Ryan");
-        GameObject mouse03("Thom");
-        GameObject mouse04("Doug");
-        GameObject mouse05("Sheryl");
-        GameObject mouse06("Bonnie");
-        unitInv.addItem(&mouse01);
-        unitInv.addItem(&mouse02);
-        unitInv.addItem(&mouse03);
-        unitInv.addItem(&mouse04);
-        unitInv.addItem(&mouse05);
-        unitInv.addItem(&mouse06);
 
         ps.assignSlot(1, p.equipmentInv.quantityMap);
         ps.assignSlot(2, p.consumableInv.quantityMap);
@@ -181,20 +102,20 @@ void GM_Campaign::prepLoop()
             {
                 //ps.clearAndPrint("");
                 //chooseFromInv("CHOOSEEQUIPMENT", equipment, playerInv);
-                chooseFromQuantityInv("CHOOSEEQUIPMENT", equipmentInv, p.equipmentInv);
+                chooseFromQuantityInv("CHOOSEEQUIPMENT", gs.prepLoopEquipmentInv, p.equipmentInv);
             }
             else if (userPrompt.getInput() == "Choose consumables")
             {
                 //ps.clearAndPrint("");
-                chooseFromQuantityInv("CHOOSECONSUMABLE", consumableInv, p.consumableInv);
+                chooseFromQuantityInv("CHOOSECONSUMABLE", gs.prepLoopConsumablesInv, p.consumableInv);
             }
             else if (userPrompt.getInput() == "Choose your vanguard")
             {
-                chooseFromDetailInv("SETVANGUARD", unitInv, p.vanguard);
+                chooseFromDetailInv("SETVANGUARD", gs.prepLoopUnitInv, p.vanguard);
             }
             else if (userPrompt.getInput() == "Choose your reinforcements")
             {
-                chooseFromDetailInv("SETVANGUARD", unitInv, p.reinforcements);
+                chooseFromDetailInv("SETVANGUARD", gs.prepLoopUnitInv, p.reinforcements);
             }
         }
 
