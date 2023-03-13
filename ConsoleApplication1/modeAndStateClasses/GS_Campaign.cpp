@@ -5,7 +5,6 @@ GS_Campaign::GS_Campaign() :
 	prepLoopEquipmentInv("Equipment"),
 	prepLoopUnitInv("Units")
 {
-
 	prepLoopEquipmentInv.addItem(std::shared_ptr<GameObject>(new GameObject("Sword")), 8);
 	prepLoopEquipmentInv.addItem(std::shared_ptr<GameObject>(new GameObject("Spear")), 8);
 	prepLoopEquipmentInv.addItem(std::shared_ptr<GameObject>(new GameObject("Shield")), 8);
