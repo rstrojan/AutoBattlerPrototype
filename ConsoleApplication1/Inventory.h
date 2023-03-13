@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <memory>
 
 #include "gameObjectClasses/GameObject.h"
 
@@ -9,15 +10,16 @@ class Inventory
 {
 public:
 	std::string name;
-	std::vector <GameObject*> inv;
+	//std::vector <GameObject*> inv;
+	std::vector <std::shared_ptr<GameObject>> inv;
 	std::map <std::string, std::string> quantityMap;
 
 
 public:
 	Inventory(std::string name);
 	Inventory(std::string name, int maxSize);
-	void addItem(GameObject* obj, int quantity = 1);
-	void removeItem(GameObject* obj);
+	void addItem(std::shared_ptr<GameObject> obj, int quantity = 1);
+	void removeItem(std::shared_ptr<GameObject> obj);
 	void removeItem(std::string itemName);
 	static void transferItem(std::string itemName, Inventory& fromInv, Inventory& toInv);
 	std::vector<std::string>& getDetailedChoiceVector();

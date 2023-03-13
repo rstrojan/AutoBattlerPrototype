@@ -5,29 +5,19 @@ GS_Campaign::GS_Campaign() :
 	prepLoopEquipmentInv("Equipment"),
 	prepLoopUnitInv("Units")
 {
-	GameObject* sword = new GameObject("Sword");
-	GameObject* spear = new GameObject("Spear");
-	GameObject* shield = new GameObject("Shield");
-	prepLoopEquipmentInv.addItem(sword, 8);
-	prepLoopEquipmentInv.addItem(spear, 8);
-	prepLoopEquipmentInv.addItem(shield, 8);
 
-	GameObject* heartyMeal = new GameObject("Hearty Meal");
-	GameObject* quickSnack = new GameObject("Quick Snack");
-	prepLoopConsumablesInv.addItem(heartyMeal, 20);
-	prepLoopConsumablesInv.addItem(quickSnack, 20);
+	prepLoopEquipmentInv.addItem(std::shared_ptr<GameObject>(new GameObject("Sword")), 8);
+	prepLoopEquipmentInv.addItem(std::shared_ptr<GameObject>(new GameObject("Spear")), 8);
+	prepLoopEquipmentInv.addItem(std::shared_ptr<GameObject>(new GameObject("Shield")), 8);
 
-	GameObject* mouse01 = new GameObject("James");
-	GameObject* mouse02 = new GameObject("Ryan");
-	GameObject* mouse03 = new GameObject("Thom");
-	GameObject* mouse04 = new GameObject("Doug");
-	GameObject* mouse05 = new GameObject("Sheryl");
-	GameObject* mouse06 = new GameObject("Bonnie");
-	prepLoopUnitInv.addItem(mouse01);
-	prepLoopUnitInv.addItem(mouse02);
-	prepLoopUnitInv.addItem(mouse03);
-	prepLoopUnitInv.addItem(mouse04);
-	prepLoopUnitInv.addItem(mouse05);
-	prepLoopUnitInv.addItem(mouse06);
+	prepLoopConsumablesInv.addItem(std::shared_ptr<GameObject>(new GameObject("Hearty Meal")), 20);
+	prepLoopConsumablesInv.addItem(std::shared_ptr<GameObject>(new GameObject("Quick Snack")), 20);
+
+	prepLoopUnitInv.addItem(std::shared_ptr<GameObject>(new GameObject("James")));
+	prepLoopUnitInv.addItem(std::shared_ptr<GameObject>(new GameObject("Ryan")));
+	prepLoopUnitInv.addItem(std::shared_ptr<GameObject>(new GameObject("Thom")));
+	prepLoopUnitInv.addItem(std::shared_ptr<GameObject>(new GameObject("Bonnie")));
+	prepLoopUnitInv.addItem(std::shared_ptr<GameObject>(new GameObject("Sheryl")));
+	prepLoopUnitInv.addItem(std::shared_ptr<GameObject>(new GameObject("Doug")));
 };
 
