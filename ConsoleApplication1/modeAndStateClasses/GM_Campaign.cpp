@@ -63,7 +63,7 @@ void GM_Campaign::chooseFromDetailInv(std::string promptKey, Inventory& fromInv,
     }
 
 
-    return;
+	return;
 }
 
 //This is temporarily overloaded with functionality that will be removed.

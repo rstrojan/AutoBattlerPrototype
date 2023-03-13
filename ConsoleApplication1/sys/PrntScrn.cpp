@@ -1,46 +1,20 @@
-#pragma once
-#include <regex>
-#include <vector>
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <map>
+#include "PrntScrn.h"
 
-class PrntScrn
-{
-	static std::vector<std::map<std::string, std::string>> slots;
-	std::string linebreak;
-	std::map<std::string, std::string> *slotOne;
-	std::map<std::string, std::string> *slotTwo;
-	std::map<std::string, std::string> *slotThree;
-	std::map<std::string, std::string> *slotFour;
-	std::map<std::string, std::string> *slotFive;
-	const std::map<std::string, std::string> blankMap = {{"",""}};
-	const int slotWidth = 15;
-
-	public:
-	PrntScrn();
-	void print(std::string str);
-	void clearAndPrint(std::string str);
-	void assignSlot(int slotNumber, std::map<std::string, std::string>& map);
-
-	private:
-	std::vector<std::string> formatSlot(std::map<std::string, std::string> *map);
-	void printHud();
-
-};
 
 PrntScrn::PrntScrn()
 {
-	
-	linebreak.assign( 80, '~');
+	slotOne;
+	slotTwo;
+	slotThree;
+	slotFour;
+	slotFive;
+	linebreak.assign(80, '~');
 	assignSlot(1, blankMap);
 	assignSlot(2, blankMap);
 	assignSlot(3, blankMap);
 	assignSlot(4, blankMap);
 	assignSlot(5, blankMap);
-	
+
 }
 
 //basic print function
@@ -69,7 +43,7 @@ void PrntScrn::printHud()
 	std::vector <std::string> formattedSlotThree = formatSlot(slotThree);
 	std::vector <std::string> formattedSlotFour = formatSlot(slotFour);
 	std::vector <std::string> formattedSlotFive = formatSlot(slotFive);
-	
+
 	//Top line of slot hud
 	std::cout << linebreak << '\n';
 
@@ -84,7 +58,7 @@ void PrntScrn::printHud()
 			std::cout << buff << '|';
 		}
 		else
-			std::cout << buff.assign(slotWidth,' ') << '|';
+			std::cout << buff.assign(slotWidth, ' ') << '|';
 
 		if (i < formattedSlotTwo.size())
 		{
@@ -124,44 +98,73 @@ void PrntScrn::printHud()
 
 		std::cout << '\n';
 	}
-	
+
 	//bottom line of slot hud.
 	std::cout << linebreak << '\n';
 
 	return;
 }
 
-
-//Takes a pointer to a map and turns it into 1D array of 
-//formatted strings that are ready to print.
-std::vector<std::string> PrntScrn::formatSlot(std::map<std::string, std::string> *map)
+std::vector<std::string> PrntScrn::formatSlot(slot &s)
 {
 	std::vector <std::string> formatted;
-	int i = 0;	for (auto const& x : *map)
+	int i = 0;
+	for (auto const& x : *s.map)
 	{
 		if (x.first == "title")
 			formatted.insert(formatted.begin(), x.second + ((slotWidth - x.second.size()), '*'));
 		else
-			formatted.push_back(x.first + ": " + x.second);
+		{
+			if (s.isValueOnly)
+			{
+				formatted.push_back(x.second);
+			}
+			else
+				formatted.push_back(x.first + ": " + x.second);
+		}
 		i++;
 	}
 	return formatted;
 }
 
+
 //Takes a reference to a map of string key/value pairs
 //and assigns it a pointer for the given slot number
-void PrntScrn::assignSlot(int slotNumber, std::map<std::string, std::string>& map)
+//maps with a key of "title" will have that entry 
+//printed at the top line.
+void PrntScrn::assignSlot(int slotNumber, std::map<std::string, std::string>& map, bool isValueOnly)
 {
 	if (slotNumber == 1)
-		slotOne = &map;
+		setSlot(slotOne, map, isValueOnly);
 	else if (slotNumber == 2)
-		slotTwo = &map;
+		setSlot(slotTwo, map, isValueOnly);
 	else if (slotNumber == 3)
-		slotThree = &map;
+		setSlot(slotThree, map, isValueOnly);
 	else if (slotNumber == 4)
-		slotFour = &map;
+		setSlot(slotFour, map, isValueOnly);
 	else if (slotNumber == 5)
-		slotFive = &map;
+		setSlot(slotFive, map, isValueOnly);
 
 	return;
+}
+
+//Takes a list of maps and assigns them to the PrntScrn slots in
+//order from left to right.
+void PrntScrn::assignSlots(std::vector<std::map<std::string, std::string>>& maps, bool isValueOnly)
+{
+	int slotNum = 1;
+	for (auto& x : maps)
+	{
+		assignSlot(slotNum, x, isValueOnly);
+		slotNum++;
+	}
+}
+
+PrntScrn::slot PrntScrn::setSlot(slot &s, std::map<std::string, std::string>& map, bool isValueOnly)
+{
+
+	s.map = &map;
+	s.isValueOnly = isValueOnly;
+
+	return s;
 }
