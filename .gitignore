@@ -30,3 +30,14 @@
 *.exe
 *.out
 *.app
+*.idb
+*.pdb
+/ConsoleApplication1/Debug
+/ConsoleApplication1/x64/Debug
+/ConsoleApplication1/.vs/ConsoleApplication1/v16/ipch/AutoPCH
+/ConsoleApplication1/ConsoleApplication1.vcxproj.user
+*.filters
+*.vcxproj
+/ConsoleApplication1/.vs/ConsoleApplication1/v16
+/.vs/AutoBattlerPrototype/v16
+/.vs
