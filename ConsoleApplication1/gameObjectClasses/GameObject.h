@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <map>
+#include <memory>
+
 
 class GameObject
 {
@@ -11,12 +13,12 @@ public:
 	std::string getChoiceDetailString();
 	std::map<std::string, std::string>& getSlotDetailMap();
 
-private:
+protected:
 	std::string choiceDetailString;
 	std::map<std::string, std::string> slotDetailMap;
 
-	void generateChoiceDetailString();
-	void generateSlotDetailMap();
+	void virtual generateChoiceDetailString();
+	void virtual generateSlotDetailMap();
 	
 };
 
