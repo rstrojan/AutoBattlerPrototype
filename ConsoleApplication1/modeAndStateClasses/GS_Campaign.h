@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "../gameObjectClasses/GameObject.h"
+#include "../gameObjectClasses/Unit.h"
 #include "../Inventory.h"
 
 class GS_Campaign
