@@ -12,16 +12,22 @@
 
 class GM_Campaign
 {
+private:
+	Player p;
+	GS_Campaign gs;
+	Prompt userPrompt;
+	PrntScrn ps;
 
 public:
 	GM_Campaign();
 
-	static void chooseFromInv(std::string promptKey, std::map <std::string, std::string> &fromInv,
-								std::map <std::string, std::string> &toInv);
 	static void chooseFromQuantityInv(std::string promptKey, Inventory& fromInv, Inventory& toInv);
 	static void chooseFromDetailInv(std::string promptKey, Inventory& fromInv, Inventory& toInv);
-	static void chooseUnit(std::vector <std::string> fromInv, std::vector<std::string> toInv);
+	static void removeFromDetailInv(Inventory& fromInv);
+	static void swapItemsInDetailInv(Inventory& inv);
+	static void manageUnitMenu(Player& p);
 
-	static void prepLoop();
+	void prepLoop();
+	void preCombatLoop();
 };
 

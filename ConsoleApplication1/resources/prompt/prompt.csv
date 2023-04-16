@@ -27,7 +27,7 @@ CHOOSECONSUMABLE.TYPE,multi
 CHOOSECONSUMABLE.VALIDATION,.*
 CHOOSECONSUMABLE.CHOICE,Hearty Meal
 CHOOSECONSUMABLE.CHOICE,Hard Tack
-SETVANGUARD.PROMPT,Choose units for your starting lineup.
+SETVANGUARD.PROMPT,Choose from below to add to above.
 SETVANGUARD.TYPE,multi
 SETVANGUARD.VALIDATION,.*
 SETVANGUARD.CHOICE,Field Mouse
@@ -40,15 +40,29 @@ SETREINFORCEMENTS.CHOICE,Song Bird
 HOWMANY.PROMPT,How many?
 HOWMANY.TYPE,written
 PRECOMBAT.PROMPT,Choose an option below.
-PRECOMBAT.CHOICE,Swap Units
+PRECOMBAT.TYPE,multi
+PRECOMBAT.VALIDATION,.*
+PRECOMBAT.CHOICE,Manage Units
 PRECOMBAT.CHOICE,Equip Units
 PRECOMBAT.CHOICE,Feed Units
+PRECOMBAT.CHOICE,Allot favor
 PRECOMBAT.CHOICE,Choose next battle
 PRECOMBAT.CHOICE,Save and quit
-SWAPUNITS01.PROMPT,Choose an option below.
-SWAPUNITS01.CHOICE,Swap two vanguard units
-SWAPUNITS01.CHOICE,Swap vanguard and reinforcement
-SWAPUNITS02.PROMPT,Enter positions of the units separated by a space.(e.g.:1 2)
+MANAGEUNITS01.PROMPT,Choose an option below.
+MANAGEUNITS01.TYPE,multi
+MANAGEUNITS01.VALIDATION,.*
+MANAGEUNITS01.CHOICE,Swap two vanguard units
+MANAGEUNITS01.CHOICE,Add to vanguard
+MANAGEUNITS01.CHOICE,Remove from vanguard
+MANAGEUNITS01.CHOICE,Remove from reinforcements
+MANAGEUNITS01.CHOICE,Back to previous menu
+MANAGEUNITS02.PROMPT,Enter positions of the units separated by a period.(e.g.:1.2) || Enter "Cancel" to go back to previous menu.
+MANAGEUNITS02.TYPE,written
+MANAGEUNITS02.VALIDATION,^(?:\d{1,2}\.\d{1,2}|([Cc][Aa][Nn][Cc][Ee][Ll]))$
+MANAGEUNITS02.INVALIDRESPONSE,Format must be "##.##" || Enter "Cancel" to go back to previous menu.
+REMOVEFROMINV.PROMPT,Please choose which to remove from the inventory.
+REMOVEFROMINV.TYPE,multi
+REMOVEFROMINV.VALIDATION,.*
 EQUIPUNITS01.PROMPT,Enter the unit # and the equipment # separated by a space.(e.g.:1 1)
 FEEDUNITS01.PROMPT,Enter the unit # and the food # separated by a space.(e.g.:1 1)
 CHOOSENODE.PROMPT,Please choose the next battle.

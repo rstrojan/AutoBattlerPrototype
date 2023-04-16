@@ -116,7 +116,7 @@ void Inventory::removeItem(std::string itemName)
 	{
 		for (auto i = begin(inv); i != end(inv);)
 		{
-			if ((*i)->name == itemName)
+			if ((*i)->name == itemName || (*i)->getChoiceDetailString() == itemName)
 			{
 				i = inv.erase(i);
 				updateQuantityMap();
@@ -245,4 +245,17 @@ void Inventory::updateSlotDetailMaps()
 		slotDetailMaps.push_back(tempMap);
 		pos++;
 	}
+}
+
+//Takes two int values, and swaps the pointers to the objs at those positions.
+//Note that this does not swap the actual objs, just the pointers to them.
+void Inventory::swapItems(int pos1, int pos2)
+{
+	if (pos1 > 0 && pos1 <= inv.size() && pos2 > 0 && pos2 <= inv.size())
+	{
+		std::shared_ptr<GameObject> temp = inv[pos1 - 1];
+		inv[pos1 - 1] = inv[pos2 - 1];
+		inv[pos2 - 1] = temp;
+	}
+	return;
 }
