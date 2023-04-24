@@ -1,7 +1,8 @@
 #pragma once
-#include <map>
-#include <string>
 #include <vector>
+#include <string>
+#include <map>
+#include <memory>
 
 #include "..\sys\Prompt.h"
 #include "..\sys\PrntScrn.h"
@@ -24,8 +25,10 @@ public:
 	static void chooseFromQuantityInv(std::string promptKey, Inventory& fromInv, Inventory& toInv);
 	static void chooseFromDetailInv(std::string promptKey, Inventory& fromInv, Inventory& toInv);
 	static void removeFromDetailInv(Inventory& fromInv);
+	static void equipVanguard(Player& p, std::string action);
 	static void swapItemsInDetailInv(Inventory& inv);
 	static void manageUnitMenu(Player& p);
+	static void equipUnitMenu(Player& p);
 
 	void prepLoop();
 	void preCombatLoop();

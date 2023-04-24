@@ -83,9 +83,8 @@ void GM_Campaign::chooseFromDetailInv(std::string promptKey, Inventory& fromInv,
     return;
 }
 
-//Prompts via a promptKey lookup and provies a list of choices from the fromInv,
 //The choices give extra details based on the game objects choiceDetailString.
-//Detailed view of the toInv is displayed in the slots.
+//Detailed view of the fromInv is displayed in the slots.
 void GM_Campaign::removeFromDetailInv(Inventory& fromInv)
 {
     PrntScrn tempScrn;
@@ -111,6 +110,81 @@ void GM_Campaign::removeFromDetailInv(Inventory& fromInv)
     }
 }
 
+//Takes the player object and an action string of "ADD" or "REMOVE"
+// Sub menu that prompts players to choose a unit, an item, and then add/remove
+// the item to/from that unit. If action=="ADD", any current item is moved to 
+// the players equipmentInv.
+void GM_Campaign::equipVanguard(Player& p, std::string action)
+{
+    PrntScrn tempScrn;
+    if (!p.vanguard.isEmpty() && !p.equipmentInv.isEmpty())
+    {
+        Prompt tempPrompt;
+        tempScrn.assignSlots(p.vanguard.getSlotDetailMaps(), true);
+        tempScrn.clearAndPrint("Choose a unit to manage their items.");
+        std::string unitSelection = tempPrompt.ask("CHOOSEUNIT","NULL", p.vanguard.getDetailedChoiceVector());
+        std::string selection;
+        std::shared_ptr <Item> itemSelection;
+        if (action == "ADD")
+        {
+            tempScrn.clearAndPrint("Choose an item to add to the selected unit.");
+            selection = tempPrompt.ask("CHOOSEEQUIPMENT", "NULL", p.equipmentInv.getDetailedChoiceVector());
+            itemSelection = std::dynamic_pointer_cast<Item> (p.equipmentInv.removeItem(selection));
+        }
+        else if (action == "REMOVE")
+        {
+            tempScrn.clearAndPrint("Choose an item to remove from the selected unit.");
+            selection = tempPrompt.ask("CHOOSEEQUIPMENT", "NULL", { "Weapon", "Armor", "Trinket" });
+        }
+
+        //find the unit in the vanguard
+        for (auto const& i : p.vanguard.inv)
+        {
+            if (i->name == unitSelection || i->getChoiceDetailString() == unitSelection)
+            {
+                //remove the item from the unit
+                std::shared_ptr<GameObject> removedItem;
+                if (action == "ADD")
+                    removedItem = std::dynamic_pointer_cast<Unit>(i)->removeItem(itemSelection->type);
+                else
+                {
+                    Item::itemType type;
+                    if (selection == "Weapon")
+                        type = Item::itemType::WEAPON;
+                    else if (selection == "Armor")
+                        type = Item::itemType::ARMOR;
+                    else if (selection == "Trinket")
+                        type = Item::itemType::TRINKET;
+                    removedItem = std::dynamic_pointer_cast<Unit>(i)->removeItem(type);
+                }
+                //add the item to the equipment inventory
+                if (removedItem != NULL)
+                {
+                    p.equipmentInv.addItem(removedItem);
+                }
+
+                //add the item to the unit
+                if (action == "ADD")
+                    std::dynamic_pointer_cast<Unit>(i)->addItem(itemSelection);
+
+                //NOTE, I don't like this being inside here, but has to be called
+                // otherwise the slot maps won't update properly between loops.
+                //Try to investigate further to see if it would be possible to NOT
+                // have to call this. The whole scheme for slot detail maps might
+                // need to be redone in order to do that.
+                p.vanguard.getSlotDetailMaps();
+                return;
+            }
+        }
+
+    }
+    else
+    {
+        tempScrn.print("One of the inventories are empty.\n");
+        system("pause");
+    }
+}
+
 
 //Prompts user to enter two ints that represent the position of two items
 // in an inventory. It then swaps the position of those items in the inventory
@@ -125,7 +199,7 @@ void GM_Campaign::swapItemsInDetailInv(Inventory& inv)
 
         std::string selection = tempPrompt.ask("MANAGEUNITS02");
 
-        //takes a string of two ints up to two digits long, separated by a comma and split them into two vars
+        //takes a string of two ints up to two digits long, separated by a period and split them into two vars
         if (selection.find(".") != std::string::npos)
         {
             int perPos = selection.find(".");
@@ -141,6 +215,8 @@ void GM_Campaign::swapItemsInDetailInv(Inventory& inv)
         system("pause");
     }
 }
+
+
 
 
 //This is temporarily overloaded with functionality that will be removed.
@@ -224,6 +300,30 @@ void GM_Campaign::manageUnitMenu(Player& p)
 
 }
 
+//Sub menu for equiping units with items. This will be called from the preCombat loop.
+void GM_Campaign::equipUnitMenu(Player& p)
+{
+    PrntScrn tempScrn;
+    Prompt tempPrompt;
+    tempScrn.assignSlots(p.vanguard.getSlotDetailMaps(), true);
+
+    while (tempPrompt.getInput() != "Back to previous menu")
+    {
+        tempScrn.clearAndPrint("Above: " + p.vanguard.name + "\nBelow: " + p.equipmentInv.name + "\n");
+        tempPrompt.ask("EQUIPUNITS01");
+        if (tempPrompt.getInput() == "Equip a unit")
+        {
+            equipVanguard(p, "ADD");
+        }
+        else if (tempPrompt.getInput() == "Remove equipment from a unit")
+        {
+            equipVanguard(p, "REMOVE");
+        }
+    }
+}
+
+
+
 // The menu loop that the player will navigate before choosing a node and 
 // starting combat phase. Player will use this menu to manage units and
 // resources and also view and select the next node.
@@ -241,6 +341,10 @@ void GM_Campaign::preCombatLoop()
         {
             manageUnitMenu(p);
 		}
+        else if (userPrompt.getInput() == "Equip Units")
+        {
+            equipUnitMenu(p);
+        }
     }
 
     return;

@@ -25,8 +25,9 @@ CHOOSEEQUIPMENT.VALIDATION,.*
 CHOOSECONSUMABLE.PROMPT,Choose a consumable.
 CHOOSECONSUMABLE.TYPE,multi
 CHOOSECONSUMABLE.VALIDATION,.*
-CHOOSECONSUMABLE.CHOICE,Hearty Meal
-CHOOSECONSUMABLE.CHOICE,Hard Tack
+CHOOSEUNIT.PROMPT,Choose a unit.
+CHOOSEUNIT.TYPE,multi
+CHOOSEUNIT.VALIDATION,.*
 SETVANGUARD.PROMPT,Choose from below to add to above.
 SETVANGUARD.TYPE,multi
 SETVANGUARD.VALIDATION,.*
@@ -63,7 +64,13 @@ MANAGEUNITS02.INVALIDRESPONSE,Format must be "##.##" || Enter "Cancel" to go bac
 REMOVEFROMINV.PROMPT,Please choose which to remove from the inventory.
 REMOVEFROMINV.TYPE,multi
 REMOVEFROMINV.VALIDATION,.*
-EQUIPUNITS01.PROMPT,Enter the unit # and the equipment # separated by a space.(e.g.:1 1)
+EQUIPUNITS01.PROMPT,Choose an option below.
+EQUIPUNITS01.TYPE,multi
+EQUIPUNITS01.VALIDATION,.*
+EQUIPUNITS01.CHOICE,Equip a unit
+EQUIPUNITS01.CHOICE,Remove equipment from a unit
+EQUIPUNITS01.CHOICE,Back to previous menu
+EQUIPUNITS02.PROMPT,
 FEEDUNITS01.PROMPT,Enter the unit # and the food # separated by a space.(e.g.:1 1)
 CHOOSENODE.PROMPT,Please choose the next battle.
 POSTCOMBAT.PROMPT,You won the battle! Please choose a reward:
