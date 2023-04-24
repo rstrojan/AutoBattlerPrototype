@@ -5,9 +5,10 @@ GS_Campaign::GS_Campaign() :
 	prepLoopEquipmentInv("Equipment"),
 	prepLoopUnitInv("Units")
 {
-	prepLoopEquipmentInv.addItem(std::shared_ptr<GameObject>(new GameObject("Sword")), 8);
-	prepLoopEquipmentInv.addItem(std::shared_ptr<GameObject>(new GameObject("Spear")), 8);
-	prepLoopEquipmentInv.addItem(std::shared_ptr<GameObject>(new GameObject("Shield")), 8);
+	prepLoopEquipmentInv.addItem(std::shared_ptr<GameObject>(new Item("Sword", Item::itemType::WEAPON, 10, 0, 5, 0)), 8);
+	prepLoopEquipmentInv.addItem(std::shared_ptr<GameObject>(new Item("Shield", Item::itemType::ARMOR, 10, 0, 0, 5)), 8);
+	prepLoopEquipmentInv.addItem(std::shared_ptr<GameObject>(new Item("Ring", Item::itemType::TRINKET, 10, 5, 0, 0)), 8);
+
 
 	prepLoopConsumablesInv.addItem(std::shared_ptr<GameObject>(new GameObject("Hearty Meal")), 20);
 	prepLoopConsumablesInv.addItem(std::shared_ptr<GameObject>(new GameObject("Quick Snack")), 20);

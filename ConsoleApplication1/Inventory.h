@@ -19,8 +19,9 @@ public:
 	Inventory(std::string name);
 	Inventory(std::string name, int maxSize);
 	void addItem(std::shared_ptr<GameObject> obj, int quantity = 1);
-	void removeItem(std::shared_ptr<GameObject> obj);
-	void removeItem(std::string itemName);
+	std::shared_ptr<GameObject> removeItem(std::shared_ptr<GameObject> obj);
+	std::shared_ptr<GameObject> removeItem(std::string itemName);
+	void swapItems(int pos1, int pos2);
 	static void transferItem(std::string itemName, Inventory& fromInv, Inventory& toInv);
 	std::vector<std::string>& getDetailedChoiceVector();
 	std::vector<std::string>& getQuantityChoiceVector();
@@ -43,5 +44,6 @@ private:
 	void updateDetailedChoiceVector();
 	void updateQuantityChoiceVector();
 	void updateSlotDetailMaps();
+	
 };
 

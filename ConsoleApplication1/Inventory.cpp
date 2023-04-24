@@ -89,8 +89,10 @@ void Inventory::addItem(std::shared_ptr<GameObject> obj, int quantity)
 	return;
 }
 
-//Remove a Game Object, based on obj pointer.
-void Inventory::removeItem(std::shared_ptr<GameObject> obj)
+//Remove a Game Object from an inventory, based on obj pointer.
+// Returns a Game Object pointer to the removed object.
+// If no object is found, returns NULL.
+std::shared_ptr<GameObject> Inventory::removeItem(std::shared_ptr<GameObject> obj)
 {
 	if (!isEmpty())
 	{
@@ -98,35 +100,40 @@ void Inventory::removeItem(std::shared_ptr<GameObject> obj)
 		{
 			if (*i == obj)
 			{
+				obj = *i;
 				i = inv.erase(i);
 				updateQuantityMap();
-				return;
+				return obj;
 			}
 			else
 				++i;
 		}
 	}
-	return;
+	return NULL;
 }
 
 //Remove a Game Object based on the "name" property of the obj.
-void Inventory::removeItem(std::string itemName)
+// Returns a Game Object pointer to the removed object.
+// If no object is found, returns NULL.
+std::shared_ptr<GameObject> Inventory::removeItem(std::string itemName)
 {
+	std::shared_ptr<GameObject> obj;
 	if (!isEmpty())
 	{
 		for (auto i = begin(inv); i != end(inv);)
 		{
-			if ((*i)->name == itemName)
+			if ((*i)->name == itemName || (*i)->getChoiceDetailString() == itemName)
 			{
+				obj = *i;
 				i = inv.erase(i);
 				updateQuantityMap();
-				return;
+				return obj;
 			}
 			else
 				++i;
 		}
 	}
-	return;
+	return NULL;
 }
 
 //Takes string matching a GameObject name or choiceDetailString, and searches for it in the 
@@ -245,4 +252,17 @@ void Inventory::updateSlotDetailMaps()
 		slotDetailMaps.push_back(tempMap);
 		pos++;
 	}
+}
+
+//Takes two int values, and swaps the pointers to the objs at those positions.
+//Note that this does not swap the actual objs, just the pointers to them.
+void Inventory::swapItems(int pos1, int pos2)
+{
+	if (pos1 > 0 && pos1 <= inv.size() && pos2 > 0 && pos2 <= inv.size())
+	{
+		std::shared_ptr<GameObject> temp = inv[pos1 - 1];
+		inv[pos1 - 1] = inv[pos2 - 1];
+		inv[pos2 - 1] = temp;
+	}
+	return;
 }

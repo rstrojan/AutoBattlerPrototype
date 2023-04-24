@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Item.h"
 class Unit :
     public GameObject
 {
@@ -9,10 +10,12 @@ public:
     int attack;
     int defense;
     std::string type;
-    std::shared_ptr <GameObject> weapon;
-    std::shared_ptr <GameObject> armor;
-    std::shared_ptr <GameObject> trinket;
+    std::shared_ptr <Item> weapon;
+    std::shared_ptr <Item> armor;
+    std::shared_ptr <Item> trinket;
 
+    void addItem(std::shared_ptr <Item> item);
+    std::shared_ptr <Item> removeItem(Item::itemType type);
 
 protected:
     void generateChoiceDetailString();

@@ -21,4 +21,6 @@ int main()
 
     newCampaign.prepLoop();
 
+    newCampaign.preCombatLoop();
+
 }
