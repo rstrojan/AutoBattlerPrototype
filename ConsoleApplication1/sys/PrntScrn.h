@@ -1,11 +1,11 @@
 #pragma once
 #include <regex>
-#include <vector>
-#include <string>
+#include <cereal/types/vector.hpp>
+#include <cereal/types/string.hpp>
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <map>
+#include <cereal/types/memory.hpp>
 
 class PrntScrn
 {

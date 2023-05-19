@@ -1,9 +1,12 @@
 #include "Unit.h"
 
 Unit::Unit(std::string name, std::string type, int baseHitPoints, int baseAttack, int baseDefense)
-    : GameObject(name)
+    : GameObject(name),
+    weaponKey(),
+    armorKey(),
+    trinketKey(),
+    modKeyList()
 {
-    this->name = name;
     this->type = type;
     this->baseHitPoints = baseHitPoints;
     this->baseAttack = baseAttack;
@@ -11,6 +14,42 @@ Unit::Unit(std::string name, std::string type, int baseHitPoints, int baseAttack
     weapon = NULL;
     armor = NULL;
     trinket = NULL;
+}
+
+// NOT FOR NORMAL USE, this is for making a blank unit for cereal
+Unit::Unit() 
+    : GameObject("")
+{}
+
+//Takes a key and loads the unit from the Unit.json file
+Unit::Unit(std::string key)
+    : GameObject(key)
+{
+    std::ifstream file("resources/jsonArchives/Unit.json");
+    cereal::JSONInputArchive archive(file);
+    Unit unitData;
+    archive(cereal::make_nvp(key, unitData));
+    this->baseHitPoints = unitData.baseHitPoints;
+    this->baseAttack = unitData.baseAttack;
+    this->baseDefense = unitData.baseDefense;
+    this->type = unitData.type;
+    if (!unitData.weaponKey.empty())
+        this->weapon = std::make_shared<Item>(unitData.weaponKey);
+    if (!unitData.armorKey.empty())
+        this->addItem(std::make_shared<Item>(unitData.armorKey));
+    if (!unitData.trinketKey.empty())
+        this->addItem(std::make_shared<Item>(unitData.trinketKey));
+    //for (auto const x : unitData.modKeyList)
+    //    this->modList.push_back(std::make_shared<Mod>(x));
+}
+
+void Unit::save()
+{
+    std::fstream file;
+    file.open("resources/jsonArchives/Unit.json", std::ios::app);
+    cereal::JSONOutputArchive archive(file);
+    auto const objname = this->name;
+    archive(cereal::make_nvp(objname, *this));
 }
 
 //Adds an item to one of the three item slots
@@ -112,9 +151,9 @@ int Unit::updateMods()
         }
     }
 
-    float modHitPointsAddVal = modHitPoints;
-    float modAttackAddVal = modAttack;
-    float modDefenseAddVal = modDefense;
+    float modHitPointsAddVal = float(modHitPoints);
+    float modAttackAddVal = float(modAttack);
+    float modDefenseAddVal = float(modDefense);
 
     for (auto mod : modList)
         if (mod->type == Mod::MULTIPLY)
@@ -160,3 +199,4 @@ void Unit::generateSlotDetailMap()
 
     return;
 }
+

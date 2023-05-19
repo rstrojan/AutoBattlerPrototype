@@ -2,9 +2,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
+#include <cereal/types/string.hpp>
 #include <regex>
-#include <vector>
+#include <cereal/types/vector.hpp>
 
 
 class Prompt

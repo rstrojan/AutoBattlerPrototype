@@ -8,6 +8,12 @@ GameObject::GameObject(std::string name)
 	generateSlotDetailMap();
 }
 
+GameObject::GameObject()
+{	name = "default";
+	generateChoiceDetailString();
+	generateSlotDetailMap();
+}
+
 //Returns a string of key details of the object
 // for use as a choice in a Prompt.
 std::string GameObject::getChoiceDetailString()
@@ -39,3 +45,11 @@ void GameObject::generateSlotDetailMap()
 	slotDetailMap["N"] = name;
 	return;
 }
+
+void GameObject::save()
+{
+	std::ofstream file("resources/jsonArchives/GameObject.json");
+	cereal::JSONOutputArchive archive(file);
+	archive(*this);
+}
+

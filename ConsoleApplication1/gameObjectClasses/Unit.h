@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 #include "GameObject.h"
 #include "Item.h"
 #include "Mod.h"
@@ -8,6 +7,8 @@ class Unit :
 {
 public:
     Unit(std::string name, std::string type, int baseHitPoints, int baseAttack, int baseDefense);
+    Unit(std::string key);
+    void save();
     int baseHitPoints;
     int baseAttack;
     int baseDefense;
@@ -27,7 +28,36 @@ private:
     int addMods(std::vector<Mod> &modList);
     int removeMods(std::vector<Mod>& modList);
     int updateMods();
-
+    
+    // For Cereal
+    Unit();
+    std::vector<std::string> modKeyList;
+    std::string weaponKey;
+    std::string armorKey;
+    std::string trinketKey;
+    friend class cereal::access;
+    template <class Archive>
+    void serialize(Archive& ar)
+    {
+        if(weapon != NULL)
+            weaponKey = weapon->name;;
+        if(armor != NULL)
+            armorKey = armor->name;
+        if(trinket != NULL)
+            trinketKey = trinket->name;
+        modKeyList.clear();
+        for (auto const x : modList)
+            modKeyList.push_back(x->name);
+        ar(CEREAL_NVP(type),
+        CEREAL_NVP(baseHitPoints),
+        CEREAL_NVP(baseAttack),
+        CEREAL_NVP(baseDefense),
+        CEREAL_NVP(weaponKey),
+        CEREAL_NVP(armorKey),
+        CEREAL_NVP(trinketKey),
+        CEREAL_NVP(modKeyList)
+        );
+    }
 protected:
     void generateChoiceDetailString();
     void generateSlotDetailMap();
