@@ -101,24 +101,24 @@ std::shared_ptr <Item> Unit::removeItem(Item::itemType type)
 }
 
 //Takes a list of mods to add and adds them to the this unit's modList.
-int Unit::addMods(std::vector<Mod>& modList)
+int Unit::addMods(std::vector<std::shared_ptr<Mod>>& modList)
 {
     for (auto mod : modList)
     {
-        this->modList.push_back(std::make_shared<Mod>(mod));
+        this->modList.push_back(mod);
     }
     return 0;
 }
 
 //Takes a list of mods to remove and removes them from the 
 // this unit's modList.
-int Unit::removeMods(std::vector<Mod>& modList)
+int Unit::removeMods(std::vector<std::shared_ptr<Mod>>& modList)
 {
     for (auto modToRemove : modList)
     {
         for (auto i = begin(this->modList); i != end(this->modList);)
         {
-            if (modToRemove.owner == (*i)->owner)
+            if (modToRemove->owner == (*i)->owner)
             {
                 i = this->modList.erase(i);
                 break;
@@ -154,9 +154,9 @@ int Unit::updateMods()
     float modHitPointsAddVal = float(modHitPoints);
     float modAttackAddVal = float(modAttack);
     float modDefenseAddVal = float(modDefense);
-    float hpMultFactor = 0.;
-    float atkMultFactor = 0.;
-    float defMultFactor = 0.;
+    float hpMultFactor = 1.;
+    float atkMultFactor = 1.;
+    float defMultFactor = 1.;
 
     for (auto mod : modList)
         if (mod->type == Mod::MULTIPLY)

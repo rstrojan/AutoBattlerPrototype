@@ -29,8 +29,8 @@ public:
 
 
 private:
-    int addMods(std::vector<Mod> &modList);
-    int removeMods(std::vector<Mod>& modList);
+    int addMods(std::vector<std::shared_ptr<Mod>>&modList);
+    int removeMods(std::vector<std::shared_ptr<Mod>>& modList);
     int updateMods();
     
     // For serialization

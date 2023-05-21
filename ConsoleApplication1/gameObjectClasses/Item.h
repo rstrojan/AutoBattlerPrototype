@@ -15,10 +15,10 @@ public:
     int attackModifier;
     int defenseModifier;
     int durability;
-    std::vector<Mod> modList;
+    std::vector<std::shared_ptr<Mod>> modList;
     
     //Constructors
-    Item(std::string name, itemType type, int durability, int hitPointModifier, int attackModifier, int defenseModifier, std::vector<Mod> modList);
+    Item(std::string name, itemType type, int durability, int hitPointModifier, int attackModifier, int defenseModifier, std::vector<std::shared_ptr<Mod>> modList);
     Item(std::string key);
 
     //basic methods
@@ -39,7 +39,7 @@ private:
         modKeyList.clear();
         for (auto const x : modList)
         {
-            modKeyList.push_back(x.name);
+            modKeyList.push_back(x->name);
         }
 
         ar(CEREAL_NVP(type),
