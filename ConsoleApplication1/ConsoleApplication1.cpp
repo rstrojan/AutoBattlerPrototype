@@ -5,6 +5,11 @@
 #include "sys/Prompt.h"
 #include "sys/PrntScrn.h"
 #include "modeAndStateClasses/GM_Campaign.h"
+#include "gameObjectClasses/GameObject.h"
+#include "gameObjectClasses/Mod.h"
+#include "gameObjectClasses/Item.h"
+#include "gameObjectClasses/Player.h"
+#include "gameObjectClasses/Unit.h"
 
 
 void printBreak()
@@ -22,5 +27,6 @@ int main()
     newCampaign.prepLoop();
 
     newCampaign.preCombatLoop();
+
 
 }

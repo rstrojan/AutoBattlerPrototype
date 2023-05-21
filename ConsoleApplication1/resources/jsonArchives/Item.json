@@ -1,0 +1,42 @@
+{
+    "myTestItem": {
+        "type": 0,
+        "hitPointModifier": 0,
+        "attackModifier": 5,
+        "defenseModifier": 0,
+        "durability": 0,
+        "modKeyList": [
+            "myTestMod"
+        ]
+    },
+        "Sword": {
+        "type": 0,
+        "hitPointModifier": 0,
+        "attackModifier": 0,
+        "defenseModifier": 0,
+        "durability": 5,
+        "modKeyList": [
+            "+1 Attack"
+        ]
+    },
+        "Ring": {
+        "type": 2,
+        "hitPointModifier": 0,
+        "attackModifier": 0,
+        "defenseModifier": 0,
+        "durability": 5,
+        "modKeyList": [
+            "+5 Hitpoints"
+        ]
+    },
+        "Shield": {
+        "type": 1,
+        "hitPointModifier": 0,
+        "attackModifier": 0,
+        "defenseModifier": 0,
+        "durability": 5,
+        "modKeyList": [
+            "+1 Defense"
+        ]
+    }
+}

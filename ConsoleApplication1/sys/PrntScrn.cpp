@@ -48,7 +48,7 @@ void PrntScrn::printHud()
 	std::cout << linebreak << '\n';
 
 	//loop over the maps and print in slot format
-	for (int i = 0; i < 10; i++)
+	for (auto i = 0; i < 10; i++)
 	{
 		std::string buff;
 		if (i < formattedSlotOne.size())

@@ -1,6 +1,5 @@
 #include "GameObject.h"
 
-
 GameObject::GameObject(std::string name)
 {
 	this->name = name;
@@ -39,3 +38,22 @@ void GameObject::generateSlotDetailMap()
 	slotDetailMap["N"] = name;
 	return;
 }
+
+
+//NOT FOR NORMAL USE, this is for the cereal library
+// to use to create a json archive of the object.
+GameObject::GameObject()
+{
+	name = "default";
+	generateChoiceDetailString();
+	generateSlotDetailMap();
+}
+//NOT FOR NORMAL USE, this is to save an object to a json archive
+//for use as a template.
+void GameObject::save()
+{
+	std::ofstream file("resources/jsonArchives/GameObject.json");
+	cereal::JSONOutputArchive archive(file);
+	archive(*this);
+}
+
