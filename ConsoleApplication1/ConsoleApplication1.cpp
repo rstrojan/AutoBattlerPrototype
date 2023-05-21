@@ -22,12 +22,11 @@ void printBreak()
 
 int main()
 {
-    GM_Campaign newCampaign;
+    //GM_Campaign newCampaign;
 
-    newCampaign.prepLoop();
+    //newCampaign.prepLoop();
 
-    newCampaign.preCombatLoop();
+    //newCampaign.preCombatLoop();
 
-
-
+    Unit myUnit("badname");
 }

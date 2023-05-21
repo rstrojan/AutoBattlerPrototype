@@ -32,10 +32,19 @@ Mod::Mod()
 Mod::Mod(std::string key, std::shared_ptr<GameObject> owner)
 	: GameObject(key)
 {
-	std::ifstream file("resources/jsonArchives/Mod.json");
-	cereal::JSONInputArchive archive(file);
 	Mod modData;
-	archive(cereal::make_nvp(key, modData));
+	try
+	{
+		std::ifstream file("resources/jsonArchives/Mod.json");
+		cereal::JSONInputArchive archive(file);
+		archive(cereal::make_nvp(key, modData));
+	}
+	catch (const cereal::Exception& e)
+	{
+		std::cout << "Error loading Mod: " << e.what() << std::endl;
+		std::exit(1);
+	}
+
 	this->stat = modData.stat;
 	this->type = modData.type;
 	this->value = modData.value;

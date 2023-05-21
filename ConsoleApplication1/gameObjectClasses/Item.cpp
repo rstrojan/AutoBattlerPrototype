@@ -23,10 +23,19 @@ Item::Item(std::string key)
 	durability(),
 	modList()
 {
-	std::ifstream file("resources/jsonArchives/Item.json");
-	cereal::JSONInputArchive archive(file);
 	Item itemData;
-	archive(cereal::make_nvp(key, itemData));
+	try 
+	{
+		std::ifstream file("resources/jsonArchives/Item.json");
+		cereal::JSONInputArchive archive(file);
+		archive(cereal::make_nvp(key, itemData));
+	}
+	catch (const cereal::Exception& e)
+	{
+		std::cout << "Error loading Item: " << e.what() << std::endl;
+		std::exit(1);
+	}
+
 	this->hitPointModifier = itemData.hitPointModifier;
 	this->attackModifier = itemData.attackModifier;
 	this->defenseModifier = itemData.defenseModifier;

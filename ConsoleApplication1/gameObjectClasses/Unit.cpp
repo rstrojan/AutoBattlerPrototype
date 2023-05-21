@@ -20,10 +20,20 @@ Unit::Unit(std::string name, std::string type, int baseHitPoints, int baseAttack
 Unit::Unit(std::string key)
     : GameObject(key)
 {
-    std::ifstream file("resources/jsonArchives/Unit.json");
-    cereal::JSONInputArchive archive(file);
+
     Unit unitData;
-    archive(cereal::make_nvp(key, unitData));
+    try
+    {
+        std::ifstream file("resources/jsonArchives/Unit.json");
+        cereal::JSONInputArchive archive(file);
+        archive(cereal::make_nvp(key, unitData));
+    }
+    catch (const cereal::Exception& e)
+    {
+		std::cout << "Error loading Unit: " << e.what() << std::endl;
+        std::exit(1);
+	}
+
     this->baseHitPoints = unitData.baseHitPoints;
     this->baseAttack = unitData.baseAttack;
     this->baseDefense = unitData.baseDefense;
