@@ -16,11 +16,6 @@ Unit::Unit(std::string name, std::string type, int baseHitPoints, int baseAttack
     trinket = NULL;
 }
 
-// NOT FOR NORMAL USE, this is for making a blank unit for cereal
-Unit::Unit() 
-    : GameObject("")
-{}
-
 //Takes a key and loads the unit from the Unit.json file
 Unit::Unit(std::string key)
     : GameObject(key)
@@ -39,21 +34,11 @@ Unit::Unit(std::string key)
         this->addItem(std::make_shared<Item>(unitData.armorKey));
     if (!unitData.trinketKey.empty())
         this->addItem(std::make_shared<Item>(unitData.trinketKey));
-    //for (auto const x : unitData.modKeyList)
-    //    this->modList.push_back(std::make_shared<Mod>(x));
-}
 
-void Unit::save()
-{
-    std::fstream file;
-    file.open("resources/jsonArchives/Unit.json", std::ios::app);
-    cereal::JSONOutputArchive archive(file);
-    auto const objname = this->name;
-    archive(cereal::make_nvp(objname, *this));
 }
 
 //Adds an item to one of the three item slots
-// depending on the on the item's ENUM itemType.
+// depending on the item's ENUM itemType.
 void Unit::addItem(std::shared_ptr<Item> item)
 {
     if (item->type == Item::itemType::WEAPON)
@@ -105,6 +90,7 @@ std::shared_ptr <Item> Unit::removeItem(Item::itemType type)
     return temp;
 }
 
+//Takes a list of mods to add and adds them to the this unit's modList.
 int Unit::addMods(std::vector<Mod>& modList)
 {
     for (auto mod : modList)
@@ -114,6 +100,8 @@ int Unit::addMods(std::vector<Mod>& modList)
     return 0;
 }
 
+//Takes a list of mods to remove and removes them from the 
+// this unit's modList.
 int Unit::removeMods(std::vector<Mod>& modList)
 {
     for (auto modToRemove : modList)
@@ -132,6 +120,8 @@ int Unit::removeMods(std::vector<Mod>& modList)
     return 0;
 }
 
+//Goes throug the modList and updates the mod<STAT> variables
+// such as modHitpoints, modAttack, and modDefense.
 int Unit::updateMods()
 {
     modHitPoints = baseHitPoints;
@@ -143,28 +133,36 @@ int Unit::updateMods()
         if (mod->type == Mod::ADD)
         {
             if (mod->stat == Mod::HITPOINTS)
-                modHitPoints += mod->value;
+                modHitPoints += (int)std::ceil(mod->value);
             else if (mod->stat == Mod::ATTACK)
-                modAttack += mod->value;
+                modAttack += (int)std::ceil(mod->value);
             else if (mod->stat == Mod::DEFENSE)
-                modDefense += mod->value;
+                modDefense += (int)std::ceil(mod->value);
         }
     }
 
     float modHitPointsAddVal = float(modHitPoints);
     float modAttackAddVal = float(modAttack);
     float modDefenseAddVal = float(modDefense);
+    float hpMultFactor = 0.;
+    float atkMultFactor = 0.;
+    float defMultFactor = 0.;
 
     for (auto mod : modList)
         if (mod->type == Mod::MULTIPLY)
         {
             if (mod->stat == Mod::HITPOINTS)
-                modHitPoints += (modHitPointsAddVal * mod->value);
+                hpMultFactor +=  mod->value;
             else if (mod->stat == Mod::ATTACK)
-                modAttack += (modAttackAddVal * mod->value);
+                atkMultFactor += mod->value;
             else if (mod->stat == Mod::DEFENSE)
-                modDefense += (modDefenseAddVal * mod->value);
+                defMultFactor += mod->value;
         }
+
+    modHitPoints = (int)std::ceil(modHitPointsAddVal * hpMultFactor);
+    modAttack = (int)std::ceil(modAttackAddVal * atkMultFactor);
+    modDefense = (int)std::ceil(modDefenseAddVal * defMultFactor);
+
     return 0;
 }
 
@@ -200,3 +198,28 @@ void Unit::generateSlotDetailMap()
     return;
 }
 
+// NOT FOR NORMAL USE, this is for making a blank unit for cereal
+Unit::Unit()
+    : GameObject(""),
+    baseHitPoints(),
+    baseAttack(),
+    baseDefense(),
+    modHitPoints(),
+    modAttack(),
+    modDefense(),
+    type(),
+    weapon(),
+    armor(),
+    trinket(),
+    modList()
+{}
+
+//NOT FOR NORMAL USE, this is for saving a unit to the Unit.json file
+void Unit::save()
+{
+    std::fstream file;
+    file.open("resources/jsonArchives/Unit.json", std::ios::app);
+    cereal::JSONOutputArchive archive(file);
+    auto const objname = this->name;
+    archive(cereal::make_nvp(objname, *this));
+}

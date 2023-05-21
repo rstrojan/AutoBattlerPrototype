@@ -6,9 +6,7 @@ class Unit :
     public GameObject
 {
 public:
-    Unit(std::string name, std::string type, int baseHitPoints, int baseAttack, int baseDefense);
-    Unit(std::string key);
-    void save();
+    //Basic attributes
     int baseHitPoints;
     int baseAttack;
     int baseDefense;
@@ -21,20 +19,27 @@ public:
     std::shared_ptr <Item> trinket;
     std::vector<std::shared_ptr <Mod>> modList;
 
+    //Constructors
+    Unit(std::string name, std::string type, int baseHitPoints, int baseAttack, int baseDefense);
+    Unit(std::string key);
+
+    //Basic methods
     void addItem(std::shared_ptr <Item> item);
     std::shared_ptr <Item> removeItem(Item::itemType type);
+
 
 private:
     int addMods(std::vector<Mod> &modList);
     int removeMods(std::vector<Mod>& modList);
     int updateMods();
     
-    // For Cereal
-    Unit();
+    // For serialization
     std::vector<std::string> modKeyList;
     std::string weaponKey;
     std::string armorKey;
     std::string trinketKey;
+    Unit();
+    void save();
     friend class cereal::access;
     template <class Archive>
     void serialize(Archive& ar)

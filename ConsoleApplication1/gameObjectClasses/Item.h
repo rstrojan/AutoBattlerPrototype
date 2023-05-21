@@ -7,20 +7,32 @@ class Item :
 {
 public:
     enum itemType : std::uint8_t { WEAPON, ARMOR, TRINKET };
-    Item(std::string name, itemType type, int durability, int hitPointModifier, int attackModifier, int defenseModifier, std::vector<Mod> modList);
-    Item(std::string key);
-    void save();
+
+
+    //Basic attributes
     itemType type;
     int hitPointModifier;
     int attackModifier;
     int defenseModifier;
     int durability;
     std::vector<Mod> modList;
+    
+    //Constructors
+    Item(std::string name, itemType type, int durability, int hitPointModifier, int attackModifier, int defenseModifier, std::vector<Mod> modList);
+    Item(std::string key);
+
+    //basic methods
+
+
 
 private:
-    Item();
+
+    //For serialization
     friend class cereal::access;
-    std::vector<std::string> modKeyList;
+    Item();
+    void save();
+    std::vector<std::string> modKeyList; //holds keys for mods
+
     template <class Archive>
     void serialize(Archive& ar)
     {

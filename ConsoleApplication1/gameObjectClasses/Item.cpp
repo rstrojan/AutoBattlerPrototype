@@ -11,20 +11,17 @@ Item::Item(std::string name, itemType type, int durability, int hitPointModifier
 	this->attackModifier = attackModifier;
 	this->defenseModifier = defenseModifier;
 	this->modList = modList;
-	//for the constructur, I need getEntry working. If anything ever needs child object,
-	// it will a string or list to be used in a getEntryConstructor that all objects will have.
-	
-	//this modlist thing is temporary! I'm justy trying it out for testing.
-	//modList.emplace_back(Mod("mod1", Mod::statType::HITPOINTS, Mod::modType::ADD, 5, std::shared_ptr<GameObject>(this)));
 }
 
-Item::Item()
-	: GameObject("")
-{
-}
-
+//Keyword constructor that loads a given key from the json archive
 Item::Item(std::string key)
-	: GameObject(key)
+	: GameObject(key),
+	type(),
+	hitPointModifier(),
+	attackModifier(),
+	defenseModifier(),
+	durability(),
+	modList()
 {
 	std::ifstream file("resources/jsonArchives/Item.json");
 	cereal::JSONInputArchive archive(file);
@@ -44,25 +41,31 @@ Item::Item(std::string key)
 	for (auto mod : modList)
 	{
 		if (mod.stat == Mod::HITPOINTS)
-			hitPointModifier = mod.value;
+			hitPointModifier = (int)std::ceil(mod.value);
 		else if (mod.stat == Mod::DEFENSE)
-			defenseModifier = mod.value;
+			defenseModifier = (int)std::ceil(mod.value);
 		else if (mod.stat == Mod::ATTACK)
-			attackModifier = mod.value;
+			attackModifier = (int)std::ceil(mod.value);
 	}
 
 }
 
+// NOT FOR NORMAL USE, this is for making a blank item for cereal
+Item::Item()
+	: GameObject(""),
+	type(),
+	hitPointModifier(),
+	attackModifier(),
+	defenseModifier(),
+	durability(),
+	modList()
+{}
+// NOT FOR NORMAL USE, this is for saving an item to json with cereal
 void Item::save()
 {
 	std::fstream file;
 	file.open("resources/jsonArchives/Item.json", std::ios::app);
 	cereal::JSONOutputArchive archive(file);
 	auto const objname = this->name;
-	//modKeyList.clear();
-	//for (auto const x : modList)
-	//{
-	//	modKeyList.push_back(x.name);
-	//}
 	archive(cereal::make_nvp(objname, * this));
 }

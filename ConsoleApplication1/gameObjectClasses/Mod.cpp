@@ -21,7 +21,11 @@ Mod::Mod(std::string name, statType stat, modType type, float value, std::shared
 // NOT FOR NORMAL USE, it is here to satisfy cereal. I need a completely blank constructor
 // to capture data when loading so I've included this here.
 Mod::Mod()
-	: GameObject("")
+	: GameObject(""),
+	stat(),
+	type(),
+	value(),
+	owner()
 {};
 
 // Call this with a key to load a Mod from the json archive.
