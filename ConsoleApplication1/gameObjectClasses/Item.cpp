@@ -1,7 +1,7 @@
 #include "Item.h"
 
 Item::Item(std::string name, itemType type, int durability, int hitPointModifier, int attackModifier, int defenseModifier,
-	std::vector<Mod> modList)
+	std::vector<std::shared_ptr<Mod>> modList)
 	: GameObject(name)
 {
 	this->name = name;
@@ -44,17 +44,17 @@ Item::Item(std::string key)
 
 	for (auto const x : itemData.modKeyList)
 	{
-		modList.emplace_back(Mod(x, std::make_shared<GameObject>(*this)));
+		modList.emplace_back(std::make_shared<Mod>(x, std::make_shared<GameObject>(*this)));
 	}
 
 	for (auto mod : modList)
 	{
-		if (mod.stat == Mod::HITPOINTS)
-			hitPointModifier = (int)std::ceil(mod.value);
-		else if (mod.stat == Mod::DEFENSE)
-			defenseModifier = (int)std::ceil(mod.value);
-		else if (mod.stat == Mod::ATTACK)
-			attackModifier = (int)std::ceil(mod.value);
+		if (mod->stat == Mod::HITPOINTS)
+			hitPointModifier = (int)std::ceil(mod->value);
+		else if (mod->stat == Mod::DEFENSE)
+			defenseModifier = (int)std::ceil(mod->value);
+		else if (mod->stat == Mod::ATTACK)
+			attackModifier = (int)std::ceil(mod->value);
 	}
 
 }
