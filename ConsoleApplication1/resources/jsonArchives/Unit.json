@@ -1,5 +1,5 @@
 {
-    "Ryan": {
+    "Ryan1": {
         "type": "Mouse",
         "baseHitPoints": 10,
         "baseAttack": 1,
@@ -9,9 +9,13 @@
         "trinketKey": "",
         "modKeyList": [
             
+        ],
+        "tagKeyList": [
+            "testTag",
+            "testTag2"
         ]
     },
-    "Ryan": {
+    "Ryan2": {
         "type": "Mouse",
         "baseHitPoints": 10,
         "baseAttack": 1,
@@ -21,30 +25,10 @@
         "trinketKey": "",
         "modKeyList": [
             
-        ]
-    },
-    "Ryan": {
-        "type": "Mouse",
-        "baseHitPoints": 10,
-        "baseAttack": 1,
-        "baseDefense": 0,
-        "weaponKey": "",
-        "armorKey": "",
-        "trinketKey": "",
-        "modKeyList": [
-            
-        ]
-    },
-        "Ryan": {
-        "type": "Mouse",
-        "baseHitPoints": 10,
-        "baseAttack": 1,
-        "baseDefense": 0,
-        "weaponKey": "",
-        "armorKey": "",
-        "trinketKey": "",
-        "modKeyList": [
-            
+        ],
+        "tagKeyList": [
+            "testTag",
+            "testTag2"
         ]
     }
 }
