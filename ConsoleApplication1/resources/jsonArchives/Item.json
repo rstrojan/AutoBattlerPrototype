@@ -7,6 +7,9 @@
         "durability": 0,
         "modKeyList": [
             "myTestMod"
+        ],
+        "tagKeyList": [
+            "Weapon"
         ]
     },
         "Sword": {
@@ -17,6 +20,10 @@
         "durability": 5,
         "modKeyList": [
             "+1 Attack"
+        ],
+        "tagKeyList": [
+            "Weapon",
+            "Two-Handed"
         ]
     },
         "Ring": {
@@ -27,6 +34,9 @@
         "durability": 5,
         "modKeyList": [
             "+5 Hitpoints"
+        ],
+        "tagKeyList": [
+            "Trinket"
         ]
     },
         "Shield": {
@@ -37,6 +47,9 @@
         "durability": 5,
         "modKeyList": [
             "+1 Defense"
+        ],
+        "tagKeyList": [
+            "Armor"
         ]
     }
 }

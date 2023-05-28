@@ -22,11 +22,17 @@ void printBreak()
 
 int main()
 {
-    GM_Campaign newCampaign;
+    //GM_Campaign newCampaign;
 
-    newCampaign.prepLoop();
+    //newCampaign.prepLoop();
 
-    newCampaign.preCombatLoop();
+    //newCampaign.preCombatLoop();
 
-
+    Item myItem("Sword");
+    std::cout << "Number of Weapon tags: " << myItem.tagCount("Weapon") << "\n";
+    Unit myUnit("Ryan1");
+    myUnit.addItem(std::make_shared<Item>(myItem));
+    myUnit.removeItem(Item::WEAPON);
+    Unit my2ndUnit("Ryan2");
+    Unit my3rdUnit("Ryan1");
 }

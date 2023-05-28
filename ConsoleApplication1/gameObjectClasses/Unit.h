@@ -35,6 +35,7 @@ private:
     
     // For serialization
     std::vector<std::string> modKeyList;
+    std::vector<std::string> tagKeyList;
     std::string weaponKey;
     std::string armorKey;
     std::string trinketKey;
@@ -53,6 +54,8 @@ private:
         modKeyList.clear();
         for (auto const x : modList)
             modKeyList.push_back(x->name);
+        for (auto const x: tags)
+            tagKeyList.push_back(x.first);
         ar(CEREAL_NVP(type),
         CEREAL_NVP(baseHitPoints),
         CEREAL_NVP(baseAttack),
@@ -60,7 +63,8 @@ private:
         CEREAL_NVP(weaponKey),
         CEREAL_NVP(armorKey),
         CEREAL_NVP(trinketKey),
-        CEREAL_NVP(modKeyList)
+        CEREAL_NVP(modKeyList),
+        CEREAL_NVP(tagKeyList)
         );
     }
 protected:

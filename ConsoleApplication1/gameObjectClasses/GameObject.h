@@ -15,6 +15,7 @@ class GameObject
 public:
 	//Basic attributes
 	std::string name;
+	std::multimap<std::string, std::shared_ptr<GameObject>> tags;
 
 	//Constructors
 	GameObject(std::string name);
@@ -23,6 +24,9 @@ public:
 	//Basic methods
 	std::string getChoiceDetailString();
 	std::map<std::string, std::string>& getSlotDetailMap();
+	void addTags(std::multimap<std::string, std::shared_ptr<GameObject>> tagsToAdd);
+	void removeTags(std::multimap<std::string, std::shared_ptr<GameObject>> tagsToRemove);
+	int tagCount(std::string tag);
 
 
 protected:

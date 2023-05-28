@@ -2,23 +2,35 @@
 
 Unit::Unit(std::string name, std::string type, int baseHitPoints, int baseAttack, int baseDefense)
     : GameObject(name),
-    weaponKey(),
-    armorKey(),
-    trinketKey(),
-    modKeyList()
+    baseHitPoints(baseHitPoints),
+    baseAttack(baseAttack),
+    baseDefense(baseDefense),
+    type(type),
+    weapon(NULL),
+    armor(NULL),
+    trinket(NULL),
+    modHitPoints(0),
+    modAttack(0),
+    modDefense(0)
 {
-    this->type = type;
-    this->baseHitPoints = baseHitPoints;
-    this->baseAttack = baseAttack;
-    this->baseDefense = baseDefense;
-    weapon = NULL;
-    armor = NULL;
-    trinket = NULL;
+    updateMods();
+    generateChoiceDetailString();
+    generateSlotDetailMap();
 }
 
 //Takes a key and loads the unit from the Unit.json file
 Unit::Unit(std::string key)
-    : GameObject(key)
+    : GameObject(key),
+    baseHitPoints(),
+    baseAttack(),
+    baseDefense(),
+    type(),
+    weapon(),
+    armor(),
+    trinket(),
+    modHitPoints(),
+    modAttack(),
+    modDefense()
 {
 
     Unit unitData;
@@ -34,12 +46,18 @@ Unit::Unit(std::string key)
         std::exit(1);
 	}
 
+    for (auto const& x : unitData.modKeyList)
+    	modList.emplace_back(std::make_shared<Mod>(x, std::make_shared<GameObject>(*this)));
+    for (auto const &x : unitData.tagKeyList)
+        tags.emplace(std::make_pair(x, std::make_shared<GameObject>(*this)));
+
     this->baseHitPoints = unitData.baseHitPoints;
     this->baseAttack = unitData.baseAttack;
     this->baseDefense = unitData.baseDefense;
     this->type = unitData.type;
+
     if (!unitData.weaponKey.empty())
-        this->weapon = std::make_shared<Item>(unitData.weaponKey);
+        this->addItem(std::make_shared<Item>(unitData.weaponKey));
     if (!unitData.armorKey.empty())
         this->addItem(std::make_shared<Item>(unitData.armorKey));
     if (!unitData.trinketKey.empty())
@@ -59,6 +77,7 @@ void Unit::addItem(std::shared_ptr<Item> item)
         trinket = item;
 
     addMods(item->modList);
+    addTags(item->tags);
     updateMods();
     generateChoiceDetailString();
     generateSlotDetailMap();
@@ -76,6 +95,7 @@ std::shared_ptr <Item> Unit::removeItem(Item::itemType type)
     {
         temp = weapon;
         weapon = NULL;
+        removeTags(temp->tags);
         removeMods(temp->modList);
 
     }
@@ -83,6 +103,7 @@ std::shared_ptr <Item> Unit::removeItem(Item::itemType type)
     {
         temp = armor;
         armor = NULL;
+        removeTags(temp->tags);
         removeMods(temp->modList);
 
     }
@@ -90,6 +111,7 @@ std::shared_ptr <Item> Unit::removeItem(Item::itemType type)
     {
         temp = trinket;
         trinket = NULL;
+        removeTags(temp->tags);
         removeMods(temp->modList);
 
     }
