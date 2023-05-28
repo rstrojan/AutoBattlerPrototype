@@ -46,7 +46,6 @@ Item::Item(std::string key)
 	{
 		modList.emplace_back(std::make_shared<Mod>(x, std::make_shared<GameObject>(*this)));
 	}
-
 	for (auto const x : itemData.tagKeyList)
 	{
 		tags.emplace(std::make_pair(x,std::make_shared<GameObject>(*this)));
