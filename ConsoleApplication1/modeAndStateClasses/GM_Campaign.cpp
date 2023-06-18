@@ -322,8 +322,6 @@ void GM_Campaign::equipUnitMenu(Player& p)
     }
 }
 
-
-
 // The menu loop that the player will navigate before choosing a node and 
 // starting combat phase. Player will use this menu to manage units and
 // resources and also view and select the next node.
@@ -348,4 +346,49 @@ void GM_Campaign::preCombatLoop()
     }
 
     return;
+}
+
+//This takes a GameObject and a RuleSet, then checks if the
+// GameObject's tagList meets the RuleSet's conditions.
+// Will return true or false based on the RuleSet.
+bool GM_Campaign::multiTagCheck(GameObject& obj, RuleSet& ruleSet)
+{
+
+    if (ruleSet.logOp == "AND")
+    {
+        for (auto r : ruleSet.ruleList)
+        {
+            if (!tagCheck(obj, (*r)))
+                return false;
+        }
+        return true;
+    }
+
+    if (ruleSet.logOp == "OR")
+        for (auto r : ruleSet.ruleList)
+        {
+            if (tagCheck(obj, (*r)))
+                return true;
+        }
+
+    return false;
+}
+
+//This takes a GameObject and a Rule, the rule checks if the
+// Tag count for the targetTag matches the ruleOp (rule operator)
+// and returns a bool result
+bool GM_Campaign::tagCheck(GameObject& obj, Rule rule)
+{
+    if (rule.ruleOp == "==")
+        return obj.tagCount(rule.targetTag) == rule.count;
+    if (rule.ruleOp == ">")
+        return obj.tagCount(rule.targetTag) > rule.count;
+    if (rule.ruleOp == ">=")
+        return obj.tagCount(rule.targetTag) >= rule.count;
+    if (rule.ruleOp == "<")
+        return obj.tagCount(rule.targetTag) < rule.count;
+    if (rule.ruleOp == "<=")
+        return obj.tagCount(rule.targetTag) <= rule.count;
+    
+    return false;
 }

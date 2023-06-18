@@ -10,6 +10,9 @@
 #include "gameObjectClasses/Item.h"
 #include "gameObjectClasses/Player.h"
 #include "gameObjectClasses/Unit.h"
+#include "gameObjectClasses/Rule.h"
+#include "gameObjectClasses/RuleSet.h"
+
 
 
 void printBreak()
@@ -22,17 +25,18 @@ void printBreak()
 
 int main()
 {
-    //GM_Campaign newCampaign;
+    GM_Campaign newCampaign;
 
     //newCampaign.prepLoop();
 
     //newCampaign.preCombatLoop();
 
     Item myItem("Sword");
-    std::cout << "Number of Weapon tags: " << myItem.tagCount("Weapon") << "\n";
-    Unit myUnit("Ryan1");
-    myUnit.addItem(std::make_shared<Item>(myItem));
-    myUnit.removeItem(Item::WEAPON);
-    Unit my2ndUnit("Ryan2");
-    Unit my3rdUnit("Ryan1");
+    RuleSet myRuleSet("WeaponCheck");
+    Rule myRule("Weapon>0");
+
+    std::cout << "MultiTagCheck: " << newCampaign.multiTagCheck(myItem, myRuleSet) << "\n";
+    std::cout << "TagCheck: " << newCampaign.tagCheck(myItem, myRule) << "\n";
+
+
 }

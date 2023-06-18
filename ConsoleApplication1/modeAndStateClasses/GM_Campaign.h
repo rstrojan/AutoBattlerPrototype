@@ -10,6 +10,8 @@
 #include "..\Inventory.h"
 #include "..\gameObjectClasses\GameObject.h"
 #include "..\gameObjectClasses\Player.h"
+#include "..\gameObjectClasses\Rule.h"
+#include "..\gameObjectClasses\RuleSet.h"
 
 class GM_Campaign
 {
@@ -29,6 +31,8 @@ public:
 	static void swapItemsInDetailInv(Inventory& inv);
 	static void manageUnitMenu(Player& p);
 	static void equipUnitMenu(Player& p);
+	static bool multiTagCheck(GameObject& obj, RuleSet& ruleSet);
+	static bool tagCheck(GameObject& obj, Rule rule);
 
 	void prepLoop();
 	void preCombatLoop();

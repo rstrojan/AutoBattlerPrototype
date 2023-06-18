@@ -1,0 +1,15 @@
+{
+	"TestRuleSet": {
+		"logOp": "AND",
+		"ruleKeyList": [
+			"TestRule"
+		]
+	},
+	"WeaponCheck": {
+		"logOp": "AND",
+		"ruleKeyList": [
+			"Weapon==0",
+			"Weapon<2"
+		]
+	}
+}
