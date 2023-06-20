@@ -13,22 +13,8 @@
         "tagKeyList": [
             "testTag",
             "testTag2"
-        ]
-    },
-    "Ryan2": {
-        "type": "Mouse",
-        "baseHitPoints": 10,
-        "baseAttack": 1,
-        "baseDefense": 0,
-        "weaponKey": "",
-        "armorKey": "",
-        "trinketKey": "",
-        "modKeyList": [
-            
         ],
-        "tagKeyList": [
-            "testTag",
-            "testTag2"
-        ]
+		"buffKeyList": [
+		]
     }
 }
