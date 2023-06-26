@@ -1,0 +1,15 @@
+{
+    "TestBuff": {
+		"durability": 5,
+        "modKeyList": [
+            "myTestMod"
+        ],
+		"abilityKeyList": [
+			"myFakeAbility"
+		],
+        "tagKeyList": [
+            "testTag",
+            "testTag2"
+        ]
+    }
+}

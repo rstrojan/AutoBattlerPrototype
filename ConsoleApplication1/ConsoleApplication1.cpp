@@ -12,6 +12,7 @@
 #include "gameObjectClasses/Unit.h"
 #include "gameObjectClasses/Rule.h"
 #include "gameObjectClasses/RuleSet.h"
+#include "gameObjectClasses/Buff.h"
 
 
 
@@ -31,12 +32,9 @@ int main()
 
     //newCampaign.preCombatLoop();
 
-    Item myItem("Sword");
-    RuleSet myRuleSet("WeaponCheck");
-    Rule myRule("Weapon>0");
-
-    std::cout << "MultiTagCheck: " << newCampaign.multiTagCheck(myItem, myRuleSet) << "\n";
-    std::cout << "TagCheck: " << newCampaign.tagCheck(myItem, myRule) << "\n";
-
+    std::shared_ptr<Buff> myBuff = std::make_shared<Buff>("TestBuff");
+    Unit myUnit("Ryan1");
+    myUnit.addBuff(myBuff);
+    myUnit.removeBuff(myBuff);
 
 }

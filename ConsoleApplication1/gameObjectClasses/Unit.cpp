@@ -122,6 +122,47 @@ std::shared_ptr <Item> Unit::removeItem(Item::itemType type)
     return temp;
 }
 
+//Adds a buff to the unit's buffList as well as the 
+// mods, abilities, and tags of the buff.
+void Unit::addBuff(std::shared_ptr<Buff> buff)
+{
+	buffList.push_back(buff);
+	addMods(buff->modList);
+	//addAbilities(buff->abilityList);
+	addTags(buff->tags);
+	updateMods();
+	generateChoiceDetailString();
+	generateSlotDetailMap();
+	return;
+}
+
+//Removes a buff from the unit's buffList as well as the
+// mods, abilities, and tags of the buff.
+std::shared_ptr <Buff> Unit::removeBuff(std::shared_ptr<Buff> buff)
+{
+    std::shared_ptr<Buff> temp;
+    for (auto i = begin(buffList); i != end(buffList);)
+    {
+        temp = buffList[std::distance(buffList.begin(), i)];
+
+        if (buff == buff)
+        {
+			i = buffList.erase(i);
+
+			break;
+		}
+		else
+			++i;
+	}
+	removeMods(buff->modList);
+	//removeAbilities(buff->abilityList);
+	removeTags(buff->tags);
+	updateMods();
+	generateChoiceDetailString();
+	generateSlotDetailMap();
+	return temp;
+}
+
 //Takes a list of mods to add and adds them to the this unit's modList.
 int Unit::addMods(std::vector<std::shared_ptr<Mod>>& modList)
 {
