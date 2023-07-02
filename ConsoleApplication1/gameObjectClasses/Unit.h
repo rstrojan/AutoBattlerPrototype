@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Item.h"
 #include "Mod.h"
+#include "Buff.h"
 class Unit :
     public GameObject
 {
@@ -18,6 +19,7 @@ public:
     std::shared_ptr <Item> armor;
     std::shared_ptr <Item> trinket;
     std::vector<std::shared_ptr <Mod>> modList;
+    std::vector<std::shared_ptr <Buff>> buffList;
 
     //Constructors
     Unit(std::string name, std::string type, int baseHitPoints, int baseAttack, int baseDefense);
@@ -26,6 +28,8 @@ public:
     //Basic methods
     void addItem(std::shared_ptr <Item> item);
     std::shared_ptr <Item> removeItem(Item::itemType type);
+    void addBuff(std::shared_ptr <Buff> buff);
+    std::shared_ptr <Buff> removeBuff(std::shared_ptr<Buff> buff);
 
 
 private:
@@ -36,6 +40,7 @@ private:
     // For serialization
     std::vector<std::string> modKeyList;
     std::vector<std::string> tagKeyList;
+    std::vector<std::string> buffKeyList;
     std::string weaponKey;
     std::string armorKey;
     std::string trinketKey;
@@ -54,8 +59,12 @@ private:
         modKeyList.clear();
         for (auto const x : modList)
             modKeyList.push_back(x->name);
+        tagKeyList.clear();
         for (auto const x: tags)
             tagKeyList.push_back(x.first);
+        buffKeyList.clear();
+        for (auto const x : buffList)
+            buffKeyList.push_back(x->name);
         ar(CEREAL_NVP(type),
         CEREAL_NVP(baseHitPoints),
         CEREAL_NVP(baseAttack),
@@ -64,11 +73,11 @@ private:
         CEREAL_NVP(armorKey),
         CEREAL_NVP(trinketKey),
         CEREAL_NVP(modKeyList),
-        CEREAL_NVP(tagKeyList)
+        CEREAL_NVP(tagKeyList),
+        CEREAL_NVP(buffKeyList)
         );
     }
 protected:
     void generateChoiceDetailString();
     void generateSlotDetailMap();
 };
-
