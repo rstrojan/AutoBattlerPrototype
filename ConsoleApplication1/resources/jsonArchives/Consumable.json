@@ -1,0 +1,12 @@
+{
+	"TestConsumable": {
+		"type": 1,
+		"ruleSetKey": "TestRuleSet",
+		"buffKeyList": [
+			"TestBuff"
+		],
+		"tagKeyList": [
+			"Consumable"
+		]
+	}
+}
