@@ -12,6 +12,8 @@
 #include "gameObjectClasses/Unit.h"
 #include "gameObjectClasses/Rule.h"
 #include "gameObjectClasses/RuleSet.h"
+#include "gameObjectClasses/Buff.h"
+#include "gameObjectClasses/Consumable.h"
 
 
 
@@ -22,6 +24,11 @@ void printBreak()
 
 }
 
+void consumableTest()
+{
+    Consumable myConsumable("TestConsumable");
+    std::cout << myConsumable.name << std::endl;
+}
 
 int main()
 {
@@ -31,12 +38,6 @@ int main()
 
     //newCampaign.preCombatLoop();
 
-    Item myItem("Sword");
-    RuleSet myRuleSet("WeaponCheck");
-    Rule myRule("Weapon>0");
-
-    std::cout << "MultiTagCheck: " << newCampaign.multiTagCheck(myItem, myRuleSet) << "\n";
-    std::cout << "TagCheck: " << newCampaign.tagCheck(myItem, myRule) << "\n";
-
+    consumableTest();
 
 }
