@@ -23,5 +23,6 @@ GS_Campaign::GS_Campaign() :
 	prepLoopUnitInv.addItem(std::make_shared<Unit>("Jacob", "mouse", 10, 1, 0));
 	prepLoopUnitInv.addItem(std::make_shared<Unit>("Jeremy", "mouse", 10, 1, 0));
 	prepLoopUnitInv.addItem(std::make_shared<Unit>("Nicole", "mouse", 10, 1, 0));
+
 };
 
