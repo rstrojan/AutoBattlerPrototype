@@ -1,7 +1,7 @@
 #include "Mod.h"
 
 
-Mod::Mod(std::string name, statType stat, modType type, float value, std::shared_ptr<GameObject> owner)
+Mod::Mod(std::string name, std::string stat, std::string type, float value, std::shared_ptr<GameObject> owner)
 	: GameObject(name)
 {
 	this->stat = stat;

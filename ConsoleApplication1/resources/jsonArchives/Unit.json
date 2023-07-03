@@ -1,5 +1,5 @@
 {
-    "Ryan1": {
+    "TestUnit": {
         "type": "Mouse",
         "baseHitPoints": 10,
         "baseAttack": 1,
@@ -15,6 +15,24 @@
             "testTag2"
         ],
 		"buffKeyList": [
+		],
+		"statMap": [
+		            {
+                "key": "BASE_ATTACK",
+                "value": 5
+            },
+            {
+                "key": "BASE_DEFENSE",
+                "value": 0
+            },
+            {
+                "key": "BASE_HITPOINTS",
+                "value": 10
+            },
+            {
+                "key": "level",
+                "value": 1
+            }
 		]
     }
 }

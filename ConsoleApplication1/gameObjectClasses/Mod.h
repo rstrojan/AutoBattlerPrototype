@@ -4,17 +4,17 @@ class Mod :
     public GameObject
 {
 public:
-    enum statType : std::uint8_t { HITPOINTS, ATTACK, DEFENSE };
-    enum modType : std::uint8_t { ADD, MULTIPLY };
+    //enum statType : std::uint8_t { HITPOINTS, ATTACK, DEFENSE };
+    //enum modType : std::uint8_t { ADD, MULTIPLY };
 
     //Basic attributes
-    statType stat;
-    modType type;
+    std::string stat;
+    std::string type;
     float value;
     std::shared_ptr<GameObject> owner;
 
     //Constructors
-    Mod(std::string name, statType stat, modType type, float value, std::shared_ptr<GameObject> owner);
+    Mod(std::string name, std::string stat, std::string type, float value, std::shared_ptr<GameObject> owner);
     Mod(std::string key, std::shared_ptr<GameObject> owner);
 
     //Basic methods

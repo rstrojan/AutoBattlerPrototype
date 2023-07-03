@@ -20,6 +20,7 @@ public:
     std::shared_ptr <Item> trinket;
     std::vector<std::shared_ptr <Mod>> modList;
     std::vector<std::shared_ptr <Buff>> buffList;
+    
 
     //Constructors
     Unit(std::string name, std::string type, int baseHitPoints, int baseAttack, int baseDefense);
@@ -30,9 +31,11 @@ public:
     std::shared_ptr <Item> removeItem(Item::itemType type);
     void addBuff(std::shared_ptr <Buff> buff);
     std::shared_ptr <Buff> removeBuff(std::shared_ptr<Buff> buff);
+    int getStat(std::string stat);
 
 
 private:
+    std::map<std::string, float> statMap;
     int addMods(std::vector<std::shared_ptr<Mod>>&modList);
     int removeMods(std::vector<std::shared_ptr<Mod>>& modList);
     int updateMods();
@@ -74,7 +77,8 @@ private:
         CEREAL_NVP(trinketKey),
         CEREAL_NVP(modKeyList),
         CEREAL_NVP(tagKeyList),
-        CEREAL_NVP(buffKeyList)
+        CEREAL_NVP(buffKeyList),
+        CEREAL_NVP(statMap)
         );
     }
 protected:

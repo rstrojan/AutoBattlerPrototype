@@ -51,15 +51,16 @@ Item::Item(std::string key)
 		tags.emplace(std::make_pair(x,std::make_shared<GameObject>(*this)));
 	}
 
-	for (auto mod : modList)
-	{
-		if (mod->stat == Mod::HITPOINTS)
-			hitPointModifier = (int)std::ceil(mod->value);
-		else if (mod->stat == Mod::DEFENSE)
-			defenseModifier = (int)std::ceil(mod->value);
-		else if (mod->stat == Mod::ATTACK)
-			attackModifier = (int)std::ceil(mod->value);
-	}
+	//DEPRECATED AS PART OF INTRODUCING STATMAPS
+	//for (auto mod : modList)
+	//{
+	//	if (mod->stat == Mod::HITPOINTS)
+	//		hitPointModifier = (int)std::ceil(mod->value);
+	//	else if (mod->stat == Mod::DEFENSE)
+	//		defenseModifier = (int)std::ceil(mod->value);
+	//	else if (mod->stat == Mod::ATTACK)
+	//		attackModifier = (int)std::ceil(mod->value);
+	//}
 
 }
 

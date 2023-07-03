@@ -11,8 +11,15 @@ Unit::Unit(std::string name, std::string type, int baseHitPoints, int baseAttack
     trinket(NULL),
     modHitPoints(0),
     modAttack(0),
-    modDefense(0)
+    modDefense(0),
+    statMap({
+            {"baseAttack",     1}
+           ,{"baseDefense",    0}
+           ,{"baseHitPoints", 10}
+           ,{"level",          1}
+           })
 {
+
     updateMods();
     generateChoiceDetailString();
     generateSlotDetailMap();
@@ -55,6 +62,7 @@ Unit::Unit(std::string key)
     this->baseAttack = unitData.baseAttack;
     this->baseDefense = unitData.baseDefense;
     this->type = unitData.type;
+    this->statMap = unitData.statMap;
 
     if (!unitData.weaponKey.empty())
         this->addItem(std::make_shared<Item>(unitData.weaponKey));
@@ -136,6 +144,20 @@ void Unit::addBuff(std::shared_ptr<Buff> buff)
 	return;
 }
 
+
+
+//Takes a string and uses it to find a stat in the unit's statMap.
+// Returns the value of the stat if found, otherwise returns NULL.
+int Unit::getStat(std::string stat)
+{
+	auto it = statMap.find(stat);
+	if (it != statMap.end())
+		return it->second;
+	else
+		return NULL;
+}
+
+
 //Removes a buff from the unit's buffList as well as the
 // mods, abilities, and tags of the buff.
 std::shared_ptr <Buff> Unit::removeBuff(std::shared_ptr<Buff> buff)
@@ -197,44 +219,67 @@ int Unit::removeMods(std::vector<std::shared_ptr<Mod>>& modList)
 // such as modHitpoints, modAttack, and modDefense.
 int Unit::updateMods()
 {
-    modHitPoints = baseHitPoints;
-    modAttack = baseAttack;
-    modDefense = baseDefense;
+    //statmap mod reset blcok
+    statMap["MOD_HITPOINTS"] = statMap["BASE_HITPOINTS"];
+    statMap["MOD_ATTACK"] = statMap["BASE_ATTACK"];
+    statMap["MOD_DEFENSE"] = statMap["BASE_DEFENSE"];
 
+    // old mod reset block
+    //modHitPoints = baseHitPoints;
+    //modAttack = baseAttack;
+    //modDefense = baseDefense;
+
+    //statmap add block
     for (auto mod : modList)
     {
-        if (mod->type == Mod::ADD)
+        if (mod->type == "ADD")
         {
-            if (mod->stat == Mod::HITPOINTS)
-                modHitPoints += (int)std::ceil(mod->value);
-            else if (mod->stat == Mod::ATTACK)
-                modAttack += (int)std::ceil(mod->value);
-            else if (mod->stat == Mod::DEFENSE)
-                modDefense += (int)std::ceil(mod->value);
+            statMap[mod->stat] += (int)std::ceil(mod->value);
         }
     }
 
-    float modHitPointsAddVal = float(modHitPoints);
-    float modAttackAddVal = float(modAttack);
-    float modDefenseAddVal = float(modDefense);
-    float hpMultFactor = 1.;
-    float atkMultFactor = 1.;
-    float defMultFactor = 1.;
+    //old add block
+    //for (auto mod : modList)
+    //{
+    //    if (mod->type == Mod::ADD)
+    //    {
+    //        if (mod->stat == Mod::HITPOINTS)
+    //            modHitPoints += (int)std::ceil(mod->value);
+    //        else if (mod->stat == Mod::ATTACK)
+    //            modAttack += (int)std::ceil(mod->value);
+    //        else if (mod->stat == Mod::DEFENSE)
+    //            modDefense += (int)std::ceil(mod->value);
+    //    }
+    //}
 
-    for (auto mod : modList)
-        if (mod->type == Mod::MULTIPLY)
-        {
-            if (mod->stat == Mod::HITPOINTS)
-                hpMultFactor +=  mod->value;
-            else if (mod->stat == Mod::ATTACK)
-                atkMultFactor += mod->value;
-            else if (mod->stat == Mod::DEFENSE)
-                defMultFactor += mod->value;
-        }
 
-    modHitPoints = (int)std::ceil(modHitPointsAddVal * hpMultFactor);
-    modAttack = (int)std::ceil(modAttackAddVal * atkMultFactor);
-    modDefense = (int)std::ceil(modDefenseAddVal * defMultFactor);
+// I'm actually going to turn off MULTIPLY now. I wasn't really sold on how I did this math
+//     before and doing this operation is going to be more difficult now than before.
+//     So fornow, I'm going to skip this.
+
+
+    ////old block
+    //float modHitPointsAddVal = float(modHitPoints);
+    //float modAttackAddVal = float(modAttack);
+    //float modDefenseAddVal = float(modDefense);
+    //float hpMultFactor = 1.;
+    //float atkMultFactor = 1.;
+    //float defMultFactor = 1.;
+
+    //for (auto mod : modList)
+    //    if (mod->type == Mod::MULTIPLY)
+    //    {
+    //        if (mod->stat == Mod::HITPOINTS)
+    //            hpMultFactor +=  mod->value;
+    //        else if (mod->stat == Mod::ATTACK)
+    //            atkMultFactor += mod->value;
+    //        else if (mod->stat == Mod::DEFENSE)
+    //            defMultFactor += mod->value;
+    //    }
+
+    //modHitPoints = (int)std::ceil(modHitPointsAddVal * hpMultFactor);
+    //modAttack = (int)std::ceil(modAttackAddVal * atkMultFactor);
+    //modDefense = (int)std::ceil(modDefenseAddVal * defMultFactor);
 
     return 0;
 }
@@ -284,14 +329,15 @@ Unit::Unit()
     weapon(),
     armor(),
     trinket(),
-    modList()
+    modList(),
+    statMap()
 {}
 
 //NOT FOR NORMAL USE, this is for saving a unit to the Unit.json file
 void Unit::save()
 {
     std::fstream file;
-    file.open("resources/jsonArchives/Unit.json", std::ios::app);
+    file.open("resources/jsonArchives/test.json", std::ios::app);
     cereal::JSONOutputArchive archive(file);
     auto const objname = this->name;
     archive(cereal::make_nvp(objname, *this));

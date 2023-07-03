@@ -2,7 +2,8 @@
     "TestBuff": {
 		"durability": 5,
         "modKeyList": [
-            "myTestMod"
+            "myTestMod",
+			"+1 Attack"
         ],
 		"abilityKeyList": [
 			"myFakeAbility"
