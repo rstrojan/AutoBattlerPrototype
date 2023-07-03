@@ -1,0 +1,25 @@
+{
+	"TestRule": {
+		"count": 1,
+		"targetTag": "Tag",
+		"ruleOp": "=="
+	},
+	
+	"Weapon==0": {
+		"count": 0,
+		"targetTag": "Weapon",
+		"ruleOp": "=="
+	},
+	
+	"Weapon>0": {
+		"count": 0,
+		"targetTag": "Weapon",
+		"ruleOp": ">"
+	},
+	
+	"Weapon<2": {
+		"count": 2,
+		"targetTag": "Weapon",
+		"ruleOp": "<"
+	}
+}

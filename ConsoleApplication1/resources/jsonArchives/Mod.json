@@ -1,0 +1,22 @@
+{
+    "myTestMod": {
+        "stat": "MOD_HITPOINTS",
+        "type": "ADD",
+        "value": 5.0
+    },
+    "+1 Attack": {
+        "stat": "MOD_ATTACK",
+        "type": "ADD",
+        "value": 1.0
+    },
+    "+5 Hitpoints": {
+        "stat": "MOD_HITPOINTS",
+        "type": "ADD",
+        "value": 5.0
+    },
+    "+1 Defense": {
+        "stat": "MOD_DEFENSE",
+        "type": "ADD",
+        "value": 1.0
+    }
+}

@@ -5,6 +5,17 @@
 #include "sys/Prompt.h"
 #include "sys/PrntScrn.h"
 #include "modeAndStateClasses/GM_Campaign.h"
+#include "gameObjectClasses/GameObject.h"
+#include "gameObjectClasses/Mod.h"
+#include "gameObjectClasses/Item.h"
+#include "gameObjectClasses/Player.h"
+#include "gameObjectClasses/Unit.h"
+#include "gameObjectClasses/Rule.h"
+#include "gameObjectClasses/RuleSet.h"
+#include "gameObjectClasses/Buff.h"
+#include "gameObjectClasses/Consumable.h"
+
+
 
 
 void printBreak()
@@ -14,11 +25,52 @@ void printBreak()
 
 }
 
+void consumableTest()
+{
+    Consumable myConsumable("TestConsumable");
+    std::cout << myConsumable.name << std::endl;
+}
+
+void itemListTest()
+{
+    Unit myUnit("TestUnit");
+    //std::cout << "Unit base attack: " << myUnit.getStat("baseAttack") << std::endl;
+    //std::cout << "Unit mod attack: " << myUnit.getStat("modAttack") << std::endl;
+    std::cout << "Adding Item with +1 attack.\n";
+    myUnit.addItem(std::make_shared<Item>("Sword"));
+    //std::cout << "Unit mod attack: " << myUnit.getStat("modAttack") << std::endl;
+    std::cout << "Removing Item with +1 attack.\n";
+}
+
+void statListTest()
+{
+    Unit myUnit("TestUnit");
+    std::cout << "Unit base attack: " << myUnit.getStat("BASE_ATTACK") << std::endl;
+    std::cout << "Unit mod attack: " << myUnit.getStat("MOD_ATTACK") << std::endl;
+    std::cout << "Adding buff with +1 attack.\n";
+    std::shared_ptr<Buff> myBuff = std::make_shared<Buff>("TestBuff");
+    myUnit.addBuff(myBuff);
+    std::cout << "Buff added.\n";
+    std::cout << "Unit mod attack: " << myUnit.getStat("MOD_ATTACK") << std::endl;
+    std::cout << "Removing Item with +1 attack.\n";
+    myUnit.removeBuff(myBuff);
+    std::cout << "Buff removed.\n";
+    std::cout << "Unit mod attack: " << myUnit.getStat("MOD_ATTACK") << std::endl;
+
+}
+
 
 int main()
 {
-    GM_Campaign newCampaign;
+    //GM_Campaign newCampaign;
 
-    newCampaign.prepLoop();
+    //newCampaign.prepLoop();
+
+    //newCampaign.preCombatLoop();
+
+    //consumableTest();
+
+    statListTest();
+
 
 }
