@@ -28,6 +28,8 @@ Unit::Unit(std::string name, std::string type, int baseHitPoints, int baseAttack
 //Takes a key and loads the unit from the Unit.json file
 Unit::Unit(std::string key)
     : GameObject(key),
+    statMap(),
+    itemMap(),
     baseHitPoints(),
     baseAttack(),
     baseDefense(),
@@ -49,27 +51,41 @@ Unit::Unit(std::string key)
     }
     catch (const cereal::Exception& e)
     {
-		std::cout << "Error loading Unit: " << e.what() << std::endl;
+        std::cout << "Error loading Unit: " << e.what() << std::endl;
         std::exit(1);
-	}
+    }
 
     for (auto const& x : unitData.modKeyList)
-    	modList.emplace_back(std::make_shared<Mod>(x, std::make_shared<GameObject>(*this)));
+        modList.emplace_back(std::make_shared<Mod>(x, std::make_shared<GameObject>(*this)));
     for (auto const &x : unitData.tagKeyList)
         tags.emplace(std::make_pair(x, std::make_shared<GameObject>(*this)));
+    //itemMap works a little differently than some of the other lists and maps
+    //that need keys when loading from json. The itemMap's first value is the TYPE
+    //of item, not the name of the item. However, we store the name of the item
+    // in the json so that the constructor will work. So we need to add another step here
+    // for this one so that we store the type/itemptr pair in the map.
+    for (auto const& x : unitData.itemKeyList)
+    {
+        std::shared_ptr<Item> tempItem = std::make_shared<Item>(x);
+        itemMap.emplace(std::make_pair(tempItem->type, tempItem));
+    }
 
     this->baseHitPoints = unitData.baseHitPoints;
     this->baseAttack = unitData.baseAttack;
     this->baseDefense = unitData.baseDefense;
     this->type = unitData.type;
     this->statMap = unitData.statMap;
+    //this->itemMap = unitData.itemMap;
 
-    if (!unitData.weaponKey.empty())
-        this->addItem(std::make_shared<Item>(unitData.weaponKey));
-    if (!unitData.armorKey.empty())
-        this->addItem(std::make_shared<Item>(unitData.armorKey));
-    if (!unitData.trinketKey.empty())
-        this->addItem(std::make_shared<Item>(unitData.trinketKey));
+    //Old block. This isn't needed anymore.
+    //if (!unitData.weaponKey.empty())
+    //    this->addItem(std::make_shared<Item>(unitData.weaponKey));
+    //if (!unitData.armorKey.empty())
+    //    this->addItem(std::make_shared<Item>(unitData.armorKey));
+    //if (!unitData.trinketKey.empty())
+    //    this->addItem(std::make_shared<Item>(unitData.trinketKey));
+
+    updateMods();
 
 }
 
@@ -77,12 +93,7 @@ Unit::Unit(std::string key)
 // depending on the item's ENUM itemType.
 void Unit::addItem(std::shared_ptr<Item> item)
 {
-    if (item->type == Item::itemType::WEAPON)
-        weapon = item;
-    else if (item->type == Item::itemType::ARMOR)
-        armor = item;
-    else if (item->type == Item::itemType::TRINKET)
-        trinket = item;
+    itemMap.emplace(std::make_pair(item->type, item));
 
     addMods(item->modList);
     addTags(item->tags);
@@ -95,34 +106,17 @@ void Unit::addItem(std::shared_ptr<Item> item)
 //Removes an item from one of the three item slots
 // depending on the type of item.
 // Returns a pointer to the item that was removed.
-std::shared_ptr <Item> Unit::removeItem(Item::itemType type)
+std::shared_ptr <Item> Unit::removeItem(std::string type)
 {
     std::shared_ptr <Item> temp;
-
-    if (type == Item::itemType::WEAPON && weapon != NULL)
+    auto it = itemMap.find(type);
+    if (it != itemMap.end())
     {
-        temp = weapon;
-        weapon = NULL;
-        removeTags(temp->tags);
-        removeMods(temp->modList);
-
-    }
-    else if (type == Item::itemType::ARMOR && armor != NULL)
-    {
-        temp = armor;
-        armor = NULL;
-        removeTags(temp->tags);
-        removeMods(temp->modList);
-
-    }
-    else if (type == Item::itemType::TRINKET && trinket != NULL)
-    {
-        temp = trinket;
-        trinket = NULL;
-        removeTags(temp->tags);
-        removeMods(temp->modList);
-
-    }
+		temp = it->second;
+		itemMap.erase(it);
+		removeTags(temp->tags);
+		removeMods(temp->modList);
+	}
 
     updateMods();
     generateChoiceDetailString();
@@ -134,27 +128,27 @@ std::shared_ptr <Item> Unit::removeItem(Item::itemType type)
 // mods, abilities, and tags of the buff.
 void Unit::addBuff(std::shared_ptr<Buff> buff)
 {
-	buffList.push_back(buff);
-	addMods(buff->modList);
-	//addAbilities(buff->abilityList);
-	addTags(buff->tags);
-	updateMods();
-	generateChoiceDetailString();
-	generateSlotDetailMap();
-	return;
+    buffList.push_back(buff);
+    addMods(buff->modList);
+    //addAbilities(buff->abilityList);
+    addTags(buff->tags);
+    updateMods();
+    generateChoiceDetailString();
+    generateSlotDetailMap();
+    return;
 }
 
 
 
 //Takes a string and uses it to find a stat in the unit's statMap.
 // Returns the value of the stat if found, otherwise returns NULL.
-int Unit::getStat(std::string stat)
+float Unit::getStat(std::string stat)
 {
-	auto it = statMap.find(stat);
-	if (it != statMap.end())
-		return it->second;
-	else
-		return NULL;
+    auto it = statMap.find(stat);
+    if (it != statMap.end())
+        return it->second;
+    else
+        return NULL;
 }
 
 
@@ -169,20 +163,20 @@ std::shared_ptr <Buff> Unit::removeBuff(std::shared_ptr<Buff> buff)
 
         if (buff == buff)
         {
-			i = buffList.erase(i);
+            i = buffList.erase(i);
 
-			break;
-		}
-		else
-			++i;
-	}
-	removeMods(buff->modList);
-	//removeAbilities(buff->abilityList);
-	removeTags(buff->tags);
-	updateMods();
-	generateChoiceDetailString();
-	generateSlotDetailMap();
-	return temp;
+            break;
+        }
+        else
+            ++i;
+    }
+    removeMods(buff->modList);
+    //removeAbilities(buff->abilityList);
+    removeTags(buff->tags);
+    updateMods();
+    generateChoiceDetailString();
+    generateSlotDetailMap();
+    return temp;
 }
 
 //Takes a list of mods to add and adds them to the this unit's modList.

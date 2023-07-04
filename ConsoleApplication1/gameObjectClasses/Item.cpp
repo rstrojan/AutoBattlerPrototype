@@ -1,6 +1,6 @@
 #include "Item.h"
 
-Item::Item(std::string name, itemType type, int durability, int hitPointModifier, int attackModifier, int defenseModifier,
+Item::Item(std::string name, std::string type, int durability, int hitPointModifier, int attackModifier, int defenseModifier,
 	std::vector<std::shared_ptr<Mod>> modList)
 	: GameObject(name)
 {

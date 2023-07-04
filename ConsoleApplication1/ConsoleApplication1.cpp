@@ -34,12 +34,16 @@ void consumableTest()
 void itemListTest()
 {
     Unit myUnit("TestUnit");
-    //std::cout << "Unit base attack: " << myUnit.getStat("baseAttack") << std::endl;
-    //std::cout << "Unit mod attack: " << myUnit.getStat("modAttack") << std::endl;
+    std::cout << "Unit base attack: " << myUnit.getStat("BASE_ATTACK") << std::endl;
+    std::cout << "Unit mod attack: " << myUnit.getStat("MOD_ATTACK") << std::endl;
     std::cout << "Adding Item with +1 attack.\n";
-    myUnit.addItem(std::make_shared<Item>("Sword"));
-    //std::cout << "Unit mod attack: " << myUnit.getStat("modAttack") << std::endl;
+    std::shared_ptr<Item> myItem = std::make_shared<Item>("Sword");
+    myUnit.addItem(myItem);
+    std::cout << "Weapon added.\n";
+    std::cout << "Unit mod attack: " << myUnit.getStat("MOD_ATTACK") << std::endl;
     std::cout << "Removing Item with +1 attack.\n";
+    myUnit.removeItem("WEAPON");
+    std::cout << "Unit mod attack: " << myUnit.getStat("MOD_ATTACK") << std::endl;
 }
 
 void statListTest()
@@ -70,7 +74,7 @@ int main()
 
     //consumableTest();
 
-    statListTest();
+    //statListTest();
 
-
+    itemListTest();
 }
