@@ -16,7 +16,11 @@ public:
     std::shared_ptr<RuleSet> ruleSet;
 
     //Constructors
-    Consumable(std::string name, consumableType type, std::vector<std::shared_ptr<Buff>> buffList);
+    Consumable(
+          std::string name
+        , consumableType type
+        , std::vector<std::shared_ptr<Buff>> buffList
+    );
     Consumable(std::string key);
 
     //Basic methods
@@ -40,10 +44,12 @@ private:
         tagKeyList.clear();
         for (auto const x : tags)
             tagKeyList.push_back(x.first);
-        ar(CEREAL_NVP(type),
-            CEREAL_NVP(ruleSetKey),
-            CEREAL_NVP(buffKeyList),
-            CEREAL_NVP(tagKeyList));
+        
+        ar(   CEREAL_NVP(type)
+            , CEREAL_NVP(ruleSetKey)
+            , CEREAL_NVP(buffKeyList)
+            , CEREAL_NVP(tagKeyList)
+        );
     }
 
 };

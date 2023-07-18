@@ -15,13 +15,12 @@ GS_Campaign::GS_Campaign() :
 	prepLoopConsumablesInv.addItem(std::make_shared<GameObject>("Hearty Meal"), 20);
 	prepLoopConsumablesInv.addItem(std::make_shared<GameObject>("Quick Snack"), 20);
 
+	prepLoopUnitInv.addItem(std::make_shared<Unit>("James"));
+	prepLoopUnitInv.addItem(std::make_shared<Unit>("Ryan"));
+	prepLoopUnitInv.addItem(std::make_shared<Unit>("Thomas"));
+	prepLoopUnitInv.addItem(std::make_shared<Unit>("Nicole"));
+	prepLoopUnitInv.addItem(std::make_shared<Unit>("Jacob"));
+	prepLoopUnitInv.addItem(std::make_shared<Unit>("Jeremy"));
 
-
-	prepLoopUnitInv.addItem(std::make_shared<Unit>("James", "mouse", 10, 1, 0));
-	prepLoopUnitInv.addItem(std::make_shared<Unit>("Ryan", "mouse", 10, 1, 0));
-	prepLoopUnitInv.addItem(std::make_shared<Unit>("Thomas", "mouse", 10, 1, 0));
-	prepLoopUnitInv.addItem(std::make_shared<Unit>("Jacob", "mouse", 10, 1, 0));
-	prepLoopUnitInv.addItem(std::make_shared<Unit>("Jeremy", "mouse", 10, 1, 0));
-	prepLoopUnitInv.addItem(std::make_shared<Unit>("Nicole", "mouse", 10, 1, 0));
 };
 

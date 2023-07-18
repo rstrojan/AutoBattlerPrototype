@@ -138,7 +138,7 @@ void GM_Campaign::equipVanguard(Player& p, std::string action)
         }
 
         //find the unit in the vanguard
-        for (auto const& i : p.vanguard.inv)
+        for (auto i : p.vanguard.inv)
         {
             if (i->name == unitSelection || i->getChoiceDetailString() == unitSelection)
             {
@@ -148,13 +148,13 @@ void GM_Campaign::equipVanguard(Player& p, std::string action)
                     removedItem = std::dynamic_pointer_cast<Unit>(i)->removeItem(itemSelection->type);
                 else
                 {
-                    Item::itemType type;
+                    std::string type;
                     if (selection == "Weapon")
-                        type = Item::itemType::WEAPON;
+                        type = "WEAPON";
                     else if (selection == "Armor")
-                        type = Item::itemType::ARMOR;
+                        type = "ARMOR";
                     else if (selection == "Trinket")
-                        type = Item::itemType::TRINKET;
+                        type = "TRINKET";
                     removedItem = std::dynamic_pointer_cast<Unit>(i)->removeItem(type);
                 }
                 //add the item to the equipment inventory

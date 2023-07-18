@@ -31,6 +31,39 @@ void consumableTest()
     std::cout << myConsumable.name << std::endl;
 }
 
+void itemListTest()
+{
+    Unit myUnit("TestUnit");
+    std::cout << "Unit base attack: " << myUnit.getStat("BASE_ATTACK") << std::endl;
+    std::cout << "Unit mod attack: " << myUnit.getStat("MOD_ATTACK") << std::endl;
+    std::cout << "Adding Item with +1 attack.\n";
+    std::shared_ptr<Item> myItem = std::make_shared<Item>("Sword");
+    myUnit.addItem(myItem);
+    std::cout << "Weapon added.\n";
+    std::cout << "Unit mod attack: " << myUnit.getStat("MOD_ATTACK") << std::endl;
+    std::cout << "Removing Item with +1 attack.\n";
+    myUnit.removeItem("WEAPON");
+    std::cout << "Unit mod attack: " << myUnit.getStat("MOD_ATTACK") << std::endl;
+}
+
+void statListTest()
+{
+    Unit myUnit("TestUnit");
+    std::cout << "Unit base attack: " << myUnit.getStat("BASE_ATTACK") << std::endl;
+    std::cout << "Unit mod attack: " << myUnit.getStat("MOD_ATTACK") << std::endl;
+    std::cout << "Adding buff with +1 attack.\n";
+    std::shared_ptr<Buff> myBuff = std::make_shared<Buff>("TestBuff");
+    myUnit.addBuff(myBuff);
+    std::cout << "Buff added.\n";
+    std::cout << "Unit mod attack: " << myUnit.getStat("MOD_ATTACK") << std::endl;
+    std::cout << "Removing Item with +1 attack.\n";
+    myUnit.removeBuff(myBuff);
+    std::cout << "Buff removed.\n";
+    std::cout << "Unit mod attack: " << myUnit.getStat("MOD_ATTACK") << std::endl;
+
+}
+
+
 int main()
 {
     GM_Campaign newCampaign;
@@ -42,4 +75,11 @@ int main()
     consumableTest();
 
 
+    newCampaign.preCombatLoop();
+
+    //consumableTest();
+
+    //statListTest();
+
+    //itemListTest();
 }

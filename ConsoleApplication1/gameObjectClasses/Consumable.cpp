@@ -1,17 +1,22 @@
 #include "Consumable.h"
 
-Consumable::Consumable(std::string name, consumableType type, std::vector<std::shared_ptr<Buff>> buffList) :
-    GameObject(name),
-    type(type),
-    buffList(buffList)
+Consumable::Consumable(
+      std::string name
+    , consumableType type
+    , std::vector<std::shared_ptr<Buff>> buffList
+)
+    : GameObject(name)
+    , type(type)
+    , buffList(buffList)
 {}
 
 //Takes a key and loads the object from the json archive.
-Consumable::Consumable(std::string key) :
-    GameObject(key),
-    type(),
-    ruleSet(),
-    buffList()
+Consumable::Consumable(std::string key) 
+    : GameObject(key)
+    , type()
+    , ruleSet()
+    , buffList() 
+
 {
     Consumable consumableData;
     try
@@ -36,11 +41,11 @@ Consumable::Consumable(std::string key) :
 }
 
 //NOT FOR REGULAR USE, this is for making a blank object for cereal.
-Consumable::Consumable() :
-    GameObject(""),
-    type(),
-    ruleSet(),
-    buffList()
+Consumable::Consumable() 
+    : GameObject("")
+    , type()
+    , ruleSet()
+    , buffList() 
 {}
 
 //NOT FOR REGULAR USE, this is to save off objects to the Consumable json archive.

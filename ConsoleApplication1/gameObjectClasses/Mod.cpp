@@ -1,11 +1,17 @@
 #include "Mod.h"
 
 
-Mod::Mod(std::string name, statType stat, modType type, float value, std::shared_ptr<GameObject> owner)
+Mod::Mod(
+	  std::string name
+	, std::string stat
+	, std::string type
+	, float value
+	, std::shared_ptr<GameObject> owner
+	)
 	: GameObject(name)
 {
-	this->stat = stat;
-	this->type = type;
+	this->stat  = stat;
+	this->type  = type;
 	this->value = value;
 	this->owner = owner;
 };
@@ -27,8 +33,8 @@ Mod::Mod(std::string key, std::shared_ptr<GameObject> owner)
 		std::exit(1);
 	}
 
-	this->stat = modData.stat;
-	this->type = modData.type;
+	this->stat  = modData.stat;
+	this->type  = modData.type;
 	this->value = modData.value;
 	this->owner = owner;
 }
@@ -37,11 +43,11 @@ Mod::Mod(std::string key, std::shared_ptr<GameObject> owner)
 // NOT FOR NORMAL USE, it is here to satisfy cereal. I need a completely blank constructor
 // to capture data when loading so I've included this here.
 Mod::Mod()
-	: GameObject(""),
-	stat(),
-	type(),
-	value(),
-	owner()
+	: GameObject("")
+	, stat()
+	, type()
+	, value()
+	, owner()
 {};
 
 

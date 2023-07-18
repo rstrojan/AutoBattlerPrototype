@@ -1,0 +1,63 @@
+{
+    "TestUnit": {
+        "type": "mouse",
+        "baseHitPoints": 10,
+        "baseAttack": 1,
+        "baseDefense": 0,
+        "weaponKey": "",
+        "armorKey": "",
+        "trinketKey": "",
+        "modKeyList": [],
+        "tagKeyList": [],
+        "buffKeyList": [],
+        "statMap": [
+		            {
+                "key": "baseAttack",
+                "value": 1
+            },
+            {
+                "key": "baseDefense",
+                "value": 0
+            },
+            {
+                "key": "baseHitPoints",
+                "value": 10
+            },
+            {
+                "key": "level",
+                "value": 1
+            }
+		]
+    }
+}{
+    "James": {
+        "type": "mouse",
+        "baseHitPoints": 10,
+        "baseAttack": 1,
+        "baseDefense": 0,
+        "weaponKey": "",
+        "armorKey": "",
+        "trinketKey": "",
+        "modKeyList": [],
+        "tagKeyList": [],
+        "buffKeyList": [],
+        "statMap": [
+            {
+                "key": "baseAttack",
+                "value": 1
+            },
+            {
+                "key": "baseDefense",
+                "value": 0
+            },
+            {
+                "key": "baseHitPoints",
+                "value": 10
+            },
+            {
+                "key": "level",
+                "value": 1
+            }
+        ]
+    }
+}

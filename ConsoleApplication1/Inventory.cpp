@@ -81,6 +81,7 @@ void Inventory::clearSize()
 // not new objs.
 void Inventory::addItem(std::shared_ptr<GameObject> obj, int quantity)
 {
+
     for (int i = 0; i < quantity && !isFull(); i++)
     {
         inv.push_back(obj);

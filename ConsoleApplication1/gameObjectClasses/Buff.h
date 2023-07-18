@@ -12,7 +12,12 @@ public:
     std::vector<std::shared_ptr<GameObject>> abilityList; // temp until Abilities are implemented
 
     //Constructors
-    Buff(std::string name, int durability, std::vector<std::shared_ptr<Mod>> modList, std::vector<std::shared_ptr<GameObject>> abilityList);
+    Buff( std::string name
+        , int durability
+        , std::vector<std::shared_ptr<Mod>> modList
+        , std::vector<std::shared_ptr<GameObject>> abilityList
+    );
+
     Buff(std::string key);
 
     //Basic methods
@@ -38,10 +43,13 @@ private:
         tagKeyList.clear();
         for (auto const x : tags)
 	        tagKeyList.push_back(x.first);
-        ar(CEREAL_NVP(durability),
-            CEREAL_NVP(modKeyList),
-            CEREAL_NVP(abilityKeyList),
-            CEREAL_NVP(tagKeyList));
+        
+        ar(   CEREAL_NVP(durability)
+            , CEREAL_NVP(modKeyList)
+            , CEREAL_NVP(abilityKeyList)
+            , CEREAL_NVP(tagKeyList)
+        );
+
 	}
 };
 
