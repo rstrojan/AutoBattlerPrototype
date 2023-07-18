@@ -8,22 +8,17 @@ class Unit :
 {
 public:
     //Basic attributes
-    int baseHitPoints;
-    int baseAttack;
-    int baseDefense;
-    int modHitPoints;
-    int modAttack;
-    int modDefense;
     std::string type;
-    std::shared_ptr <Item> weapon;
-    std::shared_ptr <Item> armor;
-    std::shared_ptr <Item> trinket;
     std::vector<std::shared_ptr <Mod>> modList;
     std::vector<std::shared_ptr <Buff>> buffList;
     
 
     //Constructors
-    Unit(std::string name, std::string type, int baseHitPoints, int baseAttack, int baseDefense);
+    Unit( std::string name
+        , std::string type
+        , std::vector<std::shared_ptr <Mod>> modList
+        , std::vector<std::shared_ptr <Buff>> buffList
+    );
     Unit(std::string key);
 
     //Basic methods
@@ -32,6 +27,7 @@ public:
     void addBuff(std::shared_ptr <Buff> buff);
     std::shared_ptr <Buff> removeBuff(std::shared_ptr<Buff> buff);
     float getStat(std::string stat);
+    std::shared_ptr <Item> getItem(std::string type);
 
 
 private:
@@ -46,21 +42,12 @@ private:
     std::vector<std::string> tagKeyList;
     std::vector<std::string> buffKeyList;
     std::vector<std::string> itemKeyList;
-    std::string weaponKey;
-    std::string armorKey;
-    std::string trinketKey;
     Unit();
     void save();
     friend class cereal::access;
     template <class Archive>
     void serialize(Archive& ar)
     {
-        if(weapon != NULL)
-            weaponKey = weapon->name;;
-        if(armor != NULL)
-            armorKey = armor->name;
-        if(trinket != NULL)
-            trinketKey = trinket->name;
         modKeyList.clear();
         for (auto const x : modList)
             modKeyList.push_back(x->name);
@@ -73,18 +60,13 @@ private:
         itemKeyList.clear();
         for (auto const x : itemMap)
             itemKeyList.push_back(x.second->name);
-        ar(CEREAL_NVP(type),
-        CEREAL_NVP(baseHitPoints),
-        CEREAL_NVP(baseAttack),
-        CEREAL_NVP(baseDefense),
-        CEREAL_NVP(weaponKey),
-        CEREAL_NVP(armorKey),
-        CEREAL_NVP(trinketKey),
-        CEREAL_NVP(modKeyList),
-        CEREAL_NVP(tagKeyList),
-        CEREAL_NVP(buffKeyList),
-        CEREAL_NVP(statMap),
-        CEREAL_NVP(itemKeyList)
+
+        ar(CEREAL_NVP(type)
+            , CEREAL_NVP(modKeyList)
+            , CEREAL_NVP(tagKeyList)
+            , CEREAL_NVP(buffKeyList)
+            , CEREAL_NVP(statMap)
+            , CEREAL_NVP(itemKeyList)
         );
     }
 protected:

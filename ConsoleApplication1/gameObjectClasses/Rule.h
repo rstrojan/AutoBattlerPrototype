@@ -23,9 +23,10 @@ private:
 	template <class Archive>
     void serialize(Archive& ar)
     {
-		ar(CEREAL_NVP(count),
-			CEREAL_NVP(targetTag),
-			CEREAL_NVP(ruleOp));
+		ar(   CEREAL_NVP(count)
+            , CEREAL_NVP(targetTag)
+            , CEREAL_NVP(ruleOp)
+        );
 	}
 };
 

@@ -66,15 +66,15 @@ void statListTest()
 
 int main()
 {
-    //GM_Campaign newCampaign;
+    GM_Campaign newCampaign;
 
-    //newCampaign.prepLoop();
+    newCampaign.prepLoop();
 
-    //newCampaign.preCombatLoop();
+    newCampaign.preCombatLoop();
 
     //consumableTest();
 
     //statListTest();
 
-    itemListTest();
+    //itemListTest();
 }

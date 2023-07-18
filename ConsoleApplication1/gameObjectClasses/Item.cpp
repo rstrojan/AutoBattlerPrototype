@@ -1,27 +1,25 @@
 #include "Item.h"
 
-Item::Item(std::string name, std::string type, int durability, int hitPointModifier, int attackModifier, int defenseModifier,
-	std::vector<std::shared_ptr<Mod>> modList)
+Item::Item(
+	  std::string name
+	, std::string type
+	, int durability
+	, std::vector<std::shared_ptr<Mod>> modList
+)
 	: GameObject(name)
+	, type(type)
+	, durability(durability)
+	, modList(modList)
 {
-	this->name = name;
-	this->type = type;
-	this->durability = durability;
-	this->hitPointModifier = hitPointModifier;
-	this->attackModifier = attackModifier;
-	this->defenseModifier = defenseModifier;
-	this->modList = modList;
+	generateChoiceDetailString();
 }
 
 //Keyword constructor that loads a given key from the json archive
 Item::Item(std::string key)
-	: GameObject(key),
-	type(),
-	hitPointModifier(),
-	attackModifier(),
-	defenseModifier(),
-	durability(),
-	modList()
+	: GameObject(key)
+	, type()
+	, durability()
+	, modList() 
 {
 	Item itemData;
 	try 
@@ -36,11 +34,8 @@ Item::Item(std::string key)
 		std::exit(1);
 	}
 
-	this->hitPointModifier = itemData.hitPointModifier;
-	this->attackModifier = itemData.attackModifier;
-	this->defenseModifier = itemData.defenseModifier;
-	this->durability = itemData.durability;
-	this->type = itemData.type;
+	this->durability       = itemData.durability;
+	this->type             = itemData.type;
 
 	for (auto const x : itemData.modKeyList)
 	{
@@ -51,28 +46,29 @@ Item::Item(std::string key)
 		tags.emplace(std::make_pair(x,std::make_shared<GameObject>(*this)));
 	}
 
-	//DEPRECATED AS PART OF INTRODUCING STATMAPS
-	//for (auto mod : modList)
-	//{
-	//	if (mod->stat == Mod::HITPOINTS)
-	//		hitPointModifier = (int)std::ceil(mod->value);
-	//	else if (mod->stat == Mod::DEFENSE)
-	//		defenseModifier = (int)std::ceil(mod->value);
-	//	else if (mod->stat == Mod::ATTACK)
-	//		attackModifier = (int)std::ceil(mod->value);
-	//}
+	generateChoiceDetailString();
+}
 
+//Creates or updates a string of key details of the 
+// object for use as a choice in a Prompt.
+void Item::generateChoiceDetailString()
+{
+	choiceDetailString = name + "; " + type + "; " + std::to_string(durability);
+
+	for (auto const& x : modList)
+	{
+		choiceDetailString += "; " + x->name;
+	}
+
+	return;
 }
 
 // NOT FOR NORMAL USE, this is for making a blank item for cereal
 Item::Item()
-	: GameObject(""),
-	type(),
-	hitPointModifier(),
-	attackModifier(),
-	defenseModifier(),
-	durability(),
-	modList()
+	: GameObject("")
+	, type()
+	, durability()
+	, modList()
 {}
 // NOT FOR NORMAL USE, this is for saving an item to json with cereal
 void Item::save()

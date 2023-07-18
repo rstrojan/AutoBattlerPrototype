@@ -6,19 +6,18 @@ class Item :
     public GameObject
 {
 public:
-    //enum itemType : std::uint8_t { WEAPON, ARMOR, TRINKET };
-
-
     //Basic attributes
     std::string type;
-    int hitPointModifier;
-    int attackModifier;
-    int defenseModifier;
     int durability;
     std::vector<std::shared_ptr<Mod>> modList;
     
     //Constructors
-    Item(std::string name, std::string type, int durability, int hitPointModifier, int attackModifier, int defenseModifier, std::vector<std::shared_ptr<Mod>> modList);
+    Item( 
+          std::string name
+        , std::string type
+        , int durability
+        , std::vector<std::shared_ptr<Mod>> modList
+    );
     Item(std::string key);
 
     //basic methods
@@ -44,16 +43,17 @@ private:
         tagKeyList.clear();
         for (auto const x : tags)
         {
-			tagKeyList.push_back(x.first);
-		}
+            tagKeyList.push_back(x.first);
+        }
 
-        ar(CEREAL_NVP(type),
-        CEREAL_NVP(hitPointModifier),
-        CEREAL_NVP(attackModifier),
-        CEREAL_NVP(defenseModifier),
-        CEREAL_NVP(durability),
-        CEREAL_NVP(modKeyList),
-        CEREAL_NVP(tagKeyList));
-	}
+        ar(   CEREAL_NVP(type)
+            , CEREAL_NVP(durability)
+            , CEREAL_NVP(modKeyList)
+            , CEREAL_NVP(tagKeyList)
+        );
+    }
+
+protected:
+    void generateChoiceDetailString();
 };
 

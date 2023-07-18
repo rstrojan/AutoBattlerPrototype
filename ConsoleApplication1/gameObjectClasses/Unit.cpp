@@ -1,25 +1,22 @@
 #include "Unit.h"
 
-Unit::Unit(std::string name, std::string type, int baseHitPoints, int baseAttack, int baseDefense)
-    : GameObject(name),
-    baseHitPoints(baseHitPoints),
-    baseAttack(baseAttack),
-    baseDefense(baseDefense),
-    type(type),
-    weapon(NULL),
-    armor(NULL),
-    trinket(NULL),
-    modHitPoints(0),
-    modAttack(0),
-    modDefense(0),
-    statMap({
+Unit::Unit(std::string name
+    , std::string type
+    , std::vector<std::shared_ptr <Mod>> modList
+    , std::vector<std::shared_ptr <Buff>> buffList
+)
+    : GameObject(name)
+    , type(type)
+    , modList(modList)
+    , buffList(buffList)
+    , statMap({
             {"baseAttack",     1}
            ,{"baseDefense",    0}
            ,{"baseHitPoints", 10}
            ,{"level",          1}
            })
+    , itemMap()
 {
-
     updateMods();
     generateChoiceDetailString();
     generateSlotDetailMap();
@@ -27,19 +24,12 @@ Unit::Unit(std::string name, std::string type, int baseHitPoints, int baseAttack
 
 //Takes a key and loads the unit from the Unit.json file
 Unit::Unit(std::string key)
-    : GameObject(key),
-    statMap(),
-    itemMap(),
-    baseHitPoints(),
-    baseAttack(),
-    baseDefense(),
-    type(),
-    weapon(),
-    armor(),
-    trinket(),
-    modHitPoints(),
-    modAttack(),
-    modDefense()
+    : GameObject(key)
+    , type()
+    , modList()
+    , buffList()
+    , statMap()
+    , itemMap()
 {
 
     Unit unitData;
@@ -70,27 +60,18 @@ Unit::Unit(std::string key)
         itemMap.emplace(std::make_pair(tempItem->type, tempItem));
     }
 
-    this->baseHitPoints = unitData.baseHitPoints;
-    this->baseAttack = unitData.baseAttack;
-    this->baseDefense = unitData.baseDefense;
-    this->type = unitData.type;
-    this->statMap = unitData.statMap;
-    //this->itemMap = unitData.itemMap;
 
-    //Old block. This isn't needed anymore.
-    //if (!unitData.weaponKey.empty())
-    //    this->addItem(std::make_shared<Item>(unitData.weaponKey));
-    //if (!unitData.armorKey.empty())
-    //    this->addItem(std::make_shared<Item>(unitData.armorKey));
-    //if (!unitData.trinketKey.empty())
-    //    this->addItem(std::make_shared<Item>(unitData.trinketKey));
+    this->type    = unitData.type;
+    this->statMap = unitData.statMap;
+    this->itemMap = unitData.itemMap;
+
 
     updateMods();
 
 }
 
 //Adds an item to one of the three item slots
-// depending on the item's ENUM itemType.
+// depending on the item's type.
 void Unit::addItem(std::shared_ptr<Item> item)
 {
     itemMap.emplace(std::make_pair(item->type, item));
@@ -151,6 +132,16 @@ float Unit::getStat(std::string stat)
         return NULL;
 }
 
+//Takes a string and tries to match it to an Item in the unit's itemMap.
+// Returns a pointer to the item if found, otherwise returns NULL.
+std::shared_ptr <Item> Unit::getItem(std::string type)
+{
+	auto it = itemMap.find(type);
+	if (it != itemMap.end())
+		return it->second;
+	else
+		return NULL;
+}
 
 //Removes a buff from the unit's buffList as well as the
 // mods, abilities, and tags of the buff.
@@ -161,10 +152,9 @@ std::shared_ptr <Buff> Unit::removeBuff(std::shared_ptr<Buff> buff)
     {
         temp = buffList[std::distance(buffList.begin(), i)];
 
-        if (buff == buff)
+        if (temp == buff)
         {
             i = buffList.erase(i);
-
             break;
         }
         else
@@ -218,11 +208,6 @@ int Unit::updateMods()
     statMap["MOD_ATTACK"] = statMap["BASE_ATTACK"];
     statMap["MOD_DEFENSE"] = statMap["BASE_DEFENSE"];
 
-    // old mod reset block
-    //modHitPoints = baseHitPoints;
-    //modAttack = baseAttack;
-    //modDefense = baseDefense;
-
     //statmap add block
     for (auto mod : modList)
     {
@@ -232,49 +217,6 @@ int Unit::updateMods()
         }
     }
 
-    //old add block
-    //for (auto mod : modList)
-    //{
-    //    if (mod->type == Mod::ADD)
-    //    {
-    //        if (mod->stat == Mod::HITPOINTS)
-    //            modHitPoints += (int)std::ceil(mod->value);
-    //        else if (mod->stat == Mod::ATTACK)
-    //            modAttack += (int)std::ceil(mod->value);
-    //        else if (mod->stat == Mod::DEFENSE)
-    //            modDefense += (int)std::ceil(mod->value);
-    //    }
-    //}
-
-
-// I'm actually going to turn off MULTIPLY now. I wasn't really sold on how I did this math
-//     before and doing this operation is going to be more difficult now than before.
-//     So fornow, I'm going to skip this.
-
-
-    ////old block
-    //float modHitPointsAddVal = float(modHitPoints);
-    //float modAttackAddVal = float(modAttack);
-    //float modDefenseAddVal = float(modDefense);
-    //float hpMultFactor = 1.;
-    //float atkMultFactor = 1.;
-    //float defMultFactor = 1.;
-
-    //for (auto mod : modList)
-    //    if (mod->type == Mod::MULTIPLY)
-    //    {
-    //        if (mod->stat == Mod::HITPOINTS)
-    //            hpMultFactor +=  mod->value;
-    //        else if (mod->stat == Mod::ATTACK)
-    //            atkMultFactor += mod->value;
-    //        else if (mod->stat == Mod::DEFENSE)
-    //            defMultFactor += mod->value;
-    //    }
-
-    //modHitPoints = (int)std::ceil(modHitPointsAddVal * hpMultFactor);
-    //modAttack = (int)std::ceil(modAttackAddVal * atkMultFactor);
-    //modDefense = (int)std::ceil(modDefenseAddVal * defMultFactor);
-
     return 0;
 }
 
@@ -283,8 +225,12 @@ int Unit::updateMods()
 void Unit::generateChoiceDetailString()
 {
     updateMods();
-    choiceDetailString = name + "(" + type + ")|H:" + std::to_string(modHitPoints) 
-                        + "|A:" + std::to_string(modAttack) + "|D:" + std::to_string(modDefense);
+    choiceDetailString = 
+          name 
+        + "(" + type + ")"
+        + "|H:" + std::to_string((int)std::ceil(getStat("MOD_HITPOINTS")))
+        + "|A:" + std::to_string((int)std::ceil(getStat("MOD_ATTACK")))
+        + "|D:" + std::to_string((int)std::ceil(getStat("MOD_DEFENSE")));
     return;
 }
 
@@ -296,35 +242,30 @@ void Unit::generateSlotDetailMap()
     slotDetailMap.clear();
     slotDetailMap["L1"] = name;
     slotDetailMap["L2"] = type;
-    slotDetailMap["L3"] = "H:" + std::to_string(modHitPoints)
-        + "|A:" + std::to_string(modAttack) + " |D:" + std::to_string(modDefense);
-    if (weapon != NULL)
-        slotDetailMap["L4"] = weapon->name + ": +" + std::to_string(weapon->attackModifier) + "atk";
-    if (armor != NULL)
-        slotDetailMap["L5"] = armor->name + ": +" + std::to_string(armor->defenseModifier) + "def";
-    if (trinket != NULL)
-        slotDetailMap["L6"] = trinket->name + ": +" + std::to_string(trinket->hitPointModifier) + "hp";
-
-
+    slotDetailMap["L3"] = "H:" + std::to_string((int)std::ceil(getStat("MOD_HITPOINTS")))
+                        + "|A:" + std::to_string((int)std::ceil(getStat("MOD_ATTACK")))
+                        + "|D:" + std::to_string((int)std::ceil(getStat("MOD_DEFENSE")));
+    slotDetailMap["L4"] = "Mods:";
+    std::string lineIndexString;
+    int lineIndex = 4;
+    for (auto mod : modList)
+    {
+        lineIndex++;
+        lineIndexString = "L" + std::to_string(lineIndex);
+		slotDetailMap[lineIndexString] = mod->name;
+	}
 
     return;
 }
 
 // NOT FOR NORMAL USE, this is for making a blank unit for cereal
 Unit::Unit()
-    : GameObject(""),
-    baseHitPoints(),
-    baseAttack(),
-    baseDefense(),
-    modHitPoints(),
-    modAttack(),
-    modDefense(),
-    type(),
-    weapon(),
-    armor(),
-    trinket(),
-    modList(),
-    statMap()
+    : GameObject("")
+    , type()
+    , modList()
+    , buffList()
+    , statMap()
+    , itemMap()
 {}
 
 //NOT FOR NORMAL USE, this is for saving a unit to the Unit.json file
