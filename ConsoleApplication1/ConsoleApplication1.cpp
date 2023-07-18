@@ -68,7 +68,12 @@ int main()
 {
     GM_Campaign newCampaign;
 
-    newCampaign.prepLoop();
+    //newCampaign.prepLoop();
+
+    //newCampaign.preCombatLoop();
+
+    consumableTest();
+
 
     newCampaign.preCombatLoop();
 

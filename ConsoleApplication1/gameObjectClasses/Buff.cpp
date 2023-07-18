@@ -18,6 +18,7 @@ Buff::Buff(std::string key)
 	, durability()
 	, modList()
 	, abilityList()
+
 {
 	Buff buffData;
 	try
@@ -48,6 +49,7 @@ Buff::Buff()
 	, durability()
 	, modList()
 	, abilityList()
+
 {}
 
 //NOT FOR REGULAR USE, this is to save off objects to the Buff json archive.

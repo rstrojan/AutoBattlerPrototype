@@ -31,7 +31,6 @@ Unit::Unit(std::string key)
     , statMap()
     , itemMap()
 {
-
     Unit unitData;
     try
     {
@@ -67,7 +66,6 @@ Unit::Unit(std::string key)
 
 
     updateMods();
-
 }
 
 //Adds an item to one of the three item slots
@@ -98,7 +96,6 @@ std::shared_ptr <Item> Unit::removeItem(std::string type)
 		removeTags(temp->tags);
 		removeMods(temp->modList);
 	}
-
     updateMods();
     generateChoiceDetailString();
     generateSlotDetailMap();
@@ -254,7 +251,6 @@ void Unit::generateSlotDetailMap()
         lineIndexString = "L" + std::to_string(lineIndex);
 		slotDetailMap[lineIndexString] = mod->name;
 	}
-
     return;
 }
 

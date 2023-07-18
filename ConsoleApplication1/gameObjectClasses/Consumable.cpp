@@ -16,6 +16,7 @@ Consumable::Consumable(std::string key)
     , type()
     , ruleSet()
     , buffList() 
+
 {
     Consumable consumableData;
     try

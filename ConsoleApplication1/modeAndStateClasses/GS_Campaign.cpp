@@ -15,8 +15,6 @@ GS_Campaign::GS_Campaign() :
 	prepLoopConsumablesInv.addItem(std::make_shared<GameObject>("Hearty Meal"), 20);
 	prepLoopConsumablesInv.addItem(std::make_shared<GameObject>("Quick Snack"), 20);
 
-
-
 	prepLoopUnitInv.addItem(std::make_shared<Unit>("James"));
 	prepLoopUnitInv.addItem(std::make_shared<Unit>("Ryan"));
 	prepLoopUnitInv.addItem(std::make_shared<Unit>("Thomas"));

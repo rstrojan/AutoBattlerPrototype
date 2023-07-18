@@ -17,6 +17,7 @@ public:
         , std::vector<std::shared_ptr<Mod>> modList
         , std::vector<std::shared_ptr<GameObject>> abilityList
     );
+
     Buff(std::string key);
 
     //Basic methods
@@ -48,6 +49,7 @@ private:
             , CEREAL_NVP(abilityKeyList)
             , CEREAL_NVP(tagKeyList)
         );
+
 	}
 };
 
