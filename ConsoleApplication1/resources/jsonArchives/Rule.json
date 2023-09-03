@@ -4,22 +4,29 @@
 		"targetTag": "Tag",
 		"ruleOp": "=="
 	},
-	
 	"Weapon==0": {
 		"count": 0,
 		"targetTag": "Weapon",
 		"ruleOp": "=="
 	},
-	
 	"Weapon>0": {
 		"count": 0,
 		"targetTag": "Weapon",
 		"ruleOp": ">"
 	},
-	
 	"Weapon<2": {
 		"count": 2,
 		"targetTag": "Weapon",
+		"ruleOp": "<"
+	},
+	"FedThisTurn==0": {
+		"count": 0,
+		"targetTag": "FedThisTurn",
+		"ruleOp": "=="
+	},
+	"Fed<3": {
+		"count": 3,
+		"targetTag": "Fed",
 		"ruleOp": "<"
 	}
 }

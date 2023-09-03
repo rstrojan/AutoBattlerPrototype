@@ -8,5 +8,27 @@
 		"tagKeyList": [
 			"Consumable"
 		]
+	},
+		"Hearty Meal": {
+		"type": 1,
+		"ruleSetKey": "FoodCheck",
+		"buffKeyList": [
+			"Hearty Meal",
+			"Fed This Turn"
+		],
+		"tagKeyList": [
+			"Consumable"
+		]
+	},
+		"Quick Snack": {
+		"type": 1,
+		"ruleSetKey": "FoodCheck",
+		"buffKeyList": [
+			"Quick Snack",
+			"Fed This Turn"
+		],
+		"tagKeyList": [
+			"Consumable"
+		]
 	}
 }

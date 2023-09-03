@@ -28,9 +28,11 @@ public:
 	static void chooseFromDetailInv(std::string promptKey, Inventory& fromInv, Inventory& toInv);
 	static void removeFromDetailInv(Inventory& fromInv);
 	static void equipVanguard(Player& p, std::string action);
+	static void feedVanguard(Player& p);
 	static void swapItemsInDetailInv(Inventory& inv);
 	static void manageUnitMenu(Player& p);
 	static void equipUnitMenu(Player& p);
+	static void feedUnitMenu(Player& p);
 	static bool multiTagCheck(GameObject& obj, RuleSet& ruleSet);
 	static bool tagCheck(GameObject& obj, Rule rule);
 
