@@ -12,8 +12,8 @@ GS_Campaign::GS_Campaign() :
 	prepLoopEquipmentInv.addItem(std::make_shared<Item>("Shield"), 10);
 	prepLoopEquipmentInv.addItem(std::make_shared<Item>("Ring"), 10);
 
-	prepLoopConsumablesInv.addItem(std::make_shared<GameObject>("Hearty Meal"), 20);
-	prepLoopConsumablesInv.addItem(std::make_shared<GameObject>("Quick Snack"), 20);
+	prepLoopConsumablesInv.addItem(std::make_shared<Consumable>("Hearty Meal"), 20);
+	prepLoopConsumablesInv.addItem(std::make_shared<Consumable>("Quick Snack"), 20);
 
 	prepLoopUnitInv.addItem(std::make_shared<Unit>("James"));
 	prepLoopUnitInv.addItem(std::make_shared<Unit>("Ryan"));

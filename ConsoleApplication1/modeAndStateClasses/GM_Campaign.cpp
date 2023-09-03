@@ -117,7 +117,7 @@ void GM_Campaign::removeFromDetailInv(Inventory& fromInv)
 void GM_Campaign::equipVanguard(Player& p, std::string action)
 {
     PrntScrn tempScrn;
-    if (!p.vanguard.isEmpty() && !p.equipmentInv.isEmpty())
+    if (!p.vanguard.isEmpty() || !p.equipmentInv.isEmpty())
     {
         Prompt tempPrompt;
         tempScrn.assignSlots(p.vanguard.getSlotDetailMaps(), true);
@@ -185,6 +185,59 @@ void GM_Campaign::equipVanguard(Player& p, std::string action)
     }
 }
 
+void GM_Campaign::feedVanguard(Player& p)
+{
+    PrntScrn tempScrn;
+    if (!p.vanguard.isEmpty() || !p.consumableInv.isEmpty())
+    { 
+        Prompt tempPrompt;
+        tempScrn.assignSlots(p.vanguard.getSlotDetailMaps(), true);
+        tempScrn.clearAndPrint("Choose a unit to feed.");
+        std::string unitSelection = tempPrompt.ask("CHOOSEUNIT", "NULL", p.vanguard.getDetailedChoiceVector());
+        std::string selection;
+        std::shared_ptr <Consumable> itemSelection;
+        tempScrn.clearAndPrint("Choose a consumable to feed to the selected unit.");
+        selection = tempPrompt.ask("CHOOSECONSUMABLE", "NULL", p.consumableInv.getDetailedChoiceVector());
+        itemSelection = std::dynamic_pointer_cast<Consumable> (p.consumableInv.removeItem(selection));
+        //find the unit in the vanguard
+        for (auto i : p.vanguard.inv)
+        {
+            if (i->name == unitSelection || i->getChoiceDetailString() == unitSelection)
+            {
+                //feed the unit
+                if (multiTagCheck(*i, *itemSelection->ruleSet))
+                {
+                    //transfer buffs
+                    for (auto buff : itemSelection->buffList)
+                    {
+                        std::dynamic_pointer_cast<Unit>(i)->addBuff(buff);
+                    }
+                }
+                else
+                {
+                    tempScrn.print("The unit cannot eat that.\n");
+                    //since not used, return the item to the consumable inventory
+                    p.consumableInv.addItem(itemSelection);
+                    system("pause");
+                }
+                //NOTE, I don't like this being inside here, but has to be called
+                // otherwise the slot maps won't update properly between loops.
+                //Try to investigate further to see if it would be possible to NOT
+                // have to call this. The whole scheme for slot detail maps might
+                // need to be redone in order to do that.
+                p.vanguard.getSlotDetailMaps();
+                return;
+            }
+        }
+    }
+    else
+    {
+        tempScrn.print("One of the inventories are empty.\n");
+        system("pause");
+    }
+
+    return;
+}
 
 //Prompts user to enter two ints that represent the position of two items
 // in an inventory. It then swaps the position of those items in the inventory
@@ -215,9 +268,6 @@ void GM_Campaign::swapItemsInDetailInv(Inventory& inv)
         system("pause");
     }
 }
-
-
-
 
 //This is temporarily overloaded with functionality that will be removed.
 //The welcome prompt and instantiations will be removed.
@@ -322,6 +372,28 @@ void GM_Campaign::equipUnitMenu(Player& p)
     }
 }
 
+void GM_Campaign::feedUnitMenu(Player& p)
+{
+    Prompt tempPrompt;
+    PrntScrn tempScrn;
+
+    //Currently this shows all units, including those that are already have the "Fed this turn" buff.
+    //You could add that to their slot detail map so that the player knows. Then you don't have to 
+    // worry about removing them from the list.
+    tempScrn.assignSlots(p.vanguard.getSlotDetailMaps(), true);
+
+    while (tempPrompt.getInput() != "Back to previous menu")
+    {
+        tempScrn.clearAndPrint("Above: " + p.vanguard.name + "\nBelow: " + p.consumableInv.name + "\n");
+        tempPrompt.ask("FEEDUNITS01");
+        if (tempPrompt.getInput() == "Feed a unit")
+        {
+            feedVanguard(p);
+        }
+
+    }
+}
+
 // The menu loop that the player will navigate before choosing a node and 
 // starting combat phase. Player will use this menu to manage units and
 // resources and also view and select the next node.
@@ -338,10 +410,14 @@ void GM_Campaign::preCombatLoop()
         if (userPrompt.getInput() == "Manage Units")
         {
             manageUnitMenu(p);
-		}
+        }
         else if (userPrompt.getInput() == "Equip Units")
         {
             equipUnitMenu(p);
+        }
+        else if (userPrompt.getInput() == "Feed Units")
+        {
+            feedUnitMenu(p);
         }
     }
 

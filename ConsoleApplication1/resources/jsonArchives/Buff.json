@@ -1,16 +1,49 @@
 {
     "TestBuff": {
-		"durability": 5,
+        "durability": 5,
         "modKeyList": [
             "myTestMod",
-			"+1 Attack"
+            "+1 Attack"
         ],
-		"abilityKeyList": [
-			"myFakeAbility"
-		],
+        "abilityKeyList": [
+            "myFakeAbility"
+        ],
         "tagKeyList": [
             "testTag",
             "testTag2"
         ]
+    },
+    "Quick Snack": {
+        "durability": 5,
+        "modKeyList": [
+            "+1 Defense"
+        ],
+        "abilityKeyList": [
+        ],
+        "tagKeyList": [
+            "Fed"
+        ]
+    },
+    "Hearty Meal": {
+        "durability": 5,
+        "modKeyList": [
+            "+1 Attack"
+        ],
+        "abilityKeyList": [
+        ],
+        "tagKeyList": [
+            "Fed"
+        ]
+    },
+    "Fed This Turn": {
+        "durability": 1,
+        "modKeyList": [
+        ],
+        "abilityKeyList": [
+        ],
+        "tagKeyList": [
+            "FedThisTurn"
+        ]
     }
+
 }

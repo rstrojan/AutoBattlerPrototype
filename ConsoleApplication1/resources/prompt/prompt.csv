@@ -70,8 +70,12 @@ EQUIPUNITS01.VALIDATION,.*
 EQUIPUNITS01.CHOICE,Equip a unit
 EQUIPUNITS01.CHOICE,Remove equipment from a unit
 EQUIPUNITS01.CHOICE,Back to previous menu
+FEEDUNITS01.PROMPT,Choose an option below.
+FEEDUNITS01.TYPE,multi
+FEEDUNITS01.VALIDATION,.*
+FEEDUNITS01.CHOICE,Feed a unit
+FEEDUNITS01.CHOICE,Back to previous menu
 EQUIPUNITS02.PROMPT,
-FEEDUNITS01.PROMPT,Enter the unit # and the food # separated by a space.(e.g.:1 1)
 CHOOSENODE.PROMPT,Please choose the next battle.
 POSTCOMBAT.PROMPT,You won the battle! Please choose a reward:
 POSTCOMBAT.CHOICE,Loot equipment

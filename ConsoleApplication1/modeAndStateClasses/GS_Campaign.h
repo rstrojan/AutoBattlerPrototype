@@ -5,6 +5,7 @@
 #include "../gameObjectClasses/GameObject.h"
 #include "../gameObjectClasses/Unit.h"
 #include "../gameObjectClasses/Item.h"
+#include "../gameObjectClasses/Consumable.h"
 #include "../Inventory.h"
 
 class GS_Campaign

@@ -11,5 +11,13 @@
 			"Weapon==0",
 			"Weapon<2"
 		]
+	},
+	"FoodCheck": {
+		"logOp": "AND",
+		"ruleKeyList": [
+			"Fed<3",
+			"FedThisTurn==0"
+		]
 	}
+
 }
