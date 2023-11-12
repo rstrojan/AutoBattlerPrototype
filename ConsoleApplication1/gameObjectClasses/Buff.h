@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Mod.h"
 
+
 class Buff :
     public GameObject
 {

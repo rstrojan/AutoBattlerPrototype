@@ -16,6 +16,8 @@
 #include "gameObjectClasses/RuleSet.h"
 #include "gameObjectClasses/Buff.h"
 #include "gameObjectClasses/Consumable.h"
+#include "sys/IAbilityDirector.h"
+
 
 void printBreak()
 {
@@ -79,6 +81,24 @@ void eventTest01()
     return;
 }
 
+void iabilityTest1()
+{
+    //You need to create the ability
+    std::shared_ptr<Unit> myUnit = std::make_shared<Unit> ("TestUnit");
+    std::shared_ptr<IAbility> myIAbility = IAbilityDirector::getIAbility("Decrement", myUnit);
+    // add the ability to a buff
+    // confirm the ability is in the buff
+    // add the buff to the unit
+    // confirm the iability is on the unit
+    // confirm the iability event is registered on the currGS.
+    // trigger the ability
+    // remove the buff from the unit
+    // confirm the iability is not on the unit
+    // confirm the iability event is not registered on the currGS.
+
+
+}
+
 
 
 void consumableTest()
@@ -139,5 +159,7 @@ int main()
 
     //itemListTest();
 
-    eventTest01();
+    //eventTest01();
+
+    iabilityTest1();
 }

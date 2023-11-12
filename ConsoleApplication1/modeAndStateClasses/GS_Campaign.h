@@ -7,6 +7,7 @@
 #include "../gameObjectClasses/Item.h"
 #include "../gameObjectClasses/Consumable.h"
 #include "../Inventory.h"
+#include "../sys/Events.h"
 
 class GS_Campaign
 {
@@ -17,6 +18,8 @@ public:
 	Inventory prepLoopConsumablesInv;
 	Inventory prepLoopEquipmentInv;
 	Inventory prepLoopUnitInv;
+	Events::event<const std::string&> Decrement;
+
 
 private:
 
