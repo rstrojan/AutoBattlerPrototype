@@ -7,6 +7,7 @@
 #include "sys/PrntScrn.h"
 #include "sys/Events.h"
 #include "modeAndStateClasses/GM_Campaign.h"
+#include "modeAndStateClasses/GS_Campaign.h"
 #include "gameObjectClasses/GameObject.h"
 #include "gameObjectClasses/Mod.h"
 #include "gameObjectClasses/Item.h"
@@ -16,6 +17,11 @@
 #include "gameObjectClasses/RuleSet.h"
 #include "gameObjectClasses/Buff.h"
 #include "gameObjectClasses/Consumable.h"
+#include "interfaceClasses/IAbility.h"
+#include "interfaceClasses/IAbilityFactory.h"
+#include"gameObjectClasses/Base_IAbility.h"
+#include "interfaceClasses/IAbilityClasses/Decrement.h"
+#include "interfaceClasses/IAbilityClasses/DecrementFactory.h"
 #include "sys/IAbilityDirector.h"
 
 

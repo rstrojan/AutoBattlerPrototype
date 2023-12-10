@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Base_IAbility" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAASAgAAAAAAAIAAAAAAEAABAAAQAAAAAAAA=</HashCode>
+      <FileName>gameObjectClasses\Base_IAbility.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Decrement" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAIAAAAAAEAAAEAAA=</HashCode>
+      <FileName>interfaceClasses\IAbilityClasses\Decrement.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecrementFactory" Collapsed="true">
+    <Position X="3.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>interfaceClasses\IAbilityClasses\Decrement.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IAbilityFactory" Collapsed="true">
+    <Position X="3.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>interfaceClasses\IAbilityFactory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IAbility" Collapsed="true">
+    <Position X="3.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAAA=</HashCode>
+      <FileName>interfaceClasses\IAbility.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Consumable" Collapsed="true">
+    <Position X="1.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAACAAAAAAAAAIEAAAASBAAAAAAQAAAAIAAA=</HashCode>
+      <FileName>gameObjectClasses\Consumable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Buff" Collapsed="true">
+    <Position X="8" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAgAAAAAABIAIQAAAAAAAAEAQAAAAAAAI=</HashCode>
+      <FileName>gameObjectClasses\Buff.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObject" Collapsed="true">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAICAAAAAAAACYAABBAAFAQAAAAJAAAIAAAA=</HashCode>
+      <FileName>gameObjectClasses\GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mod" Collapsed="true">
+    <Position X="10.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAgAAAAAAAIAAAAAQBAiAAAAAAAAAAAAA=</HashCode>
+      <FileName>gameObjectClasses\Mod.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory" Collapsed="true">
+    <Position X="23" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAIAFAAhAAADEEAACAAAAHDAAGAQBAIAAICgIAQAA=</HashCode>
+      <FileName>Inventory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Item" Collapsed="true">
+    <Position X="3.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAYAIEAAABAAAAEAQAAAAAAAI=</HashCode>
+      <FileName>gameObjectClasses\Item.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GM_Campaign">
+    <Position X="11.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQRAAACAAAAEAECAAAAAAAAQgAABAAgAkABCAAAEAA=</HashCode>
+      <FileName>modeAndStateClasses\GM_Campaign.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GS_Campaign" Collapsed="true">
+    <Position X="19.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAEAAAAAAAABIgAAAAAAAAAAAAA=</HashCode>
+      <FileName>modeAndStateClasses\GS_Campaign.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="12.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAIAAAAAAACAAAAAAACCAAAAAAAAAAAACAQAAAIA=</HashCode>
+      <FileName>gameObjectClasses\Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RuleSet" Collapsed="true">
+    <Position X="14.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAIAIAAAAAAAAAACAAkAAAAAAAA=</HashCode>
+      <FileName>gameObjectClasses\RuleSet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rule" Collapsed="true">
+    <Position X="5.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAECAAABABAAIIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>gameObjectClasses\Rule.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IAbilityDirector">
+    <Position X="9" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>sys\IAbilityDirector.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PrntScrn" Collapsed="true">
+    <Position X="19.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQKAAAAAAAAAAAUIBAACAAAAQEAAAAAJAEQQQgAAAA=</HashCode>
+      <FileName>sys\PrntScrn.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prompt" Collapsed="true">
+    <Position X="21.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAUAAAAEAAAAAAAAACAAAAAAIBAAAkQAIABAAAg=</HashCode>
+      <FileName>sys\Prompt.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Unit" Collapsed="true">
+    <Position X="17" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAgAAAAQACAAAAkIACAYEIAAAQBAAAAAAwAIAAAgAI=</HashCode>
+      <FileName>gameObjectClasses\Unit.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Events::event_handler&lt;...Args&gt;" Collapsed="true">
+    <Position X="21.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEEAABAQAIAEAAABAAAAAAAAAAAgA=</HashCode>
+      <FileName>sys\Events.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Events::event&lt;...Args&gt;" Collapsed="true">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAIEAAAAAEFAAAAAAAAAAAAAIAAAAIABACAAA=</HashCode>
+      <FileName>sys\Events.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

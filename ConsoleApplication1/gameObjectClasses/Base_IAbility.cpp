@@ -2,7 +2,7 @@
 
 
 Base_IAbility::Base_IAbility(std::string key, std::shared_ptr<GameObject> owner)
-    : GameObject(key)
+    : name(key)
     , owner(owner)
     , desc()
     , isHidden()
@@ -20,10 +20,6 @@ Base_IAbility::Base_IAbility(std::string key, std::shared_ptr<GameObject> owner)
         std::exit(1);
     }
 
-    //
-    for (auto const& x : iabilityData.tagKeyList)
-        tags.emplace(std::make_pair(x, std::make_shared<GameObject>(*this)));
-
     this->desc = iabilityData.desc;
     this->isHidden = iabilityData.isHidden;
 }
@@ -33,7 +29,7 @@ Base_IAbility::Base_IAbility(
     , std::string desc
     , bool isHidden
     , std::shared_ptr<GameObject> owner)
-    : GameObject(name)
+    : name(name)
     , owner(owner)
     , desc(desc)
     , isHidden(isHidden)
@@ -42,7 +38,7 @@ Base_IAbility::Base_IAbility(
 
 //NOT FOR NORMAL USE, this is for making a blank object to capture data when loading.
 Base_IAbility::Base_IAbility()
-    : GameObject()
+    : name()
     , owner()
     , desc()
     , isHidden()

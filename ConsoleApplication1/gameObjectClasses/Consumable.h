@@ -3,6 +3,8 @@
 #include "Buff.h"
 #include "RuleSet.h"
 
+class Buff;
+
 class Consumable :
     public GameObject
 {

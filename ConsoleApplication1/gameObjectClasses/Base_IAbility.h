@@ -2,16 +2,16 @@
 #include <chrono>
 #include <memory>
 #include "GameObject.h"
-#include "Unit.h"
+//#include "Unit.h"
 #include "../sys/Events.h"
 #include "../modeAndStateClasses/GS_Campaign.h"
 
 
-class Base_IAbility :
-    public GameObject
+class Base_IAbility
 {
 public:
     //Basic attributes
+    std::string name;
     std::string desc;
     std::shared_ptr<GameObject> owner;
     bool isHidden;
@@ -24,8 +24,6 @@ public:
     );
     Base_IAbility(std::string key, std::shared_ptr<GameObject> owner);
 
-    //Basic Methods
-    //static std::shared_ptr<Base_Ability> getAbility(std::string key, std::shared_ptr<GameObject> owner);
 
 private:
     //For serialization

@@ -1,12 +1,7 @@
 #pragma once
 #include <memory>
-#include "../gameObjectClasses/GameObject.h"
-#include "../gameObjectClasses/Base_IAbility.h"
-#include "../gameObjectClasses/Unit.h"
 #include "../interfaceClasses/IAbility.h"
-#include "../modeAndStateClasses/GS_Campaign.h"
-#include "../interfaceClasses/IAbilityFactory.h"
-#include "../interfaceClasses/IAbilityClasses/Decrement.h"
+#include "../interfaceClasses/IAbilityClasses/DecrementFactory.h"
 
 
 class IAbilityDirector

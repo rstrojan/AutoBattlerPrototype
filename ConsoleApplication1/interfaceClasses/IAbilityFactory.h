@@ -2,7 +2,6 @@
 
 #include <memory>
 #include "../gameObjectClasses/GameObject.h"
-#include "../gameObjectClasses/Base_IAbility.h"
 #include "IAbility.h"
 
 

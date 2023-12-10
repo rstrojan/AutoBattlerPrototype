@@ -2,9 +2,12 @@
 #include <memory>
 #include "../modeAndStateClasses/GS_Campaign.h"
 
+
+class GS_Campaign;
 class IAbility
 {
 public:
+
     virtual void update(GS_Campaign& currGS) = 0; //THE GS SHOULD BE MADE GENERIC
     /*this is what all of the abilities have in common.
      When update is called, each ability will update it's eventHandler.
@@ -16,5 +19,8 @@ public:
       be info from the game state, or perhaps a tag check on the owner of the ability.
       2) Execution: If the validation passes, the event handler will execute the ability.
     */
+
+    virtual std::string getName() = 0;
+
 
 };
