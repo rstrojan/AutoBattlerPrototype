@@ -94,9 +94,6 @@
             {
                 "key": "level",
                 "value": 1
-            },
-            {   "key": "durability",
-                "value": 3
             }
         ],
         "itemKeyList": [

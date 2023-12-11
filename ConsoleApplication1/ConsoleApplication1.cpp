@@ -24,7 +24,6 @@
 #include "interfaceClasses/IAbilityClasses/DecrementFactory.h"
 #include "sys/IAbilityDirector.h"
 
-
 void printBreak()
 {
     std::cout << "\n~~~~~~~~~\n\n";
@@ -64,7 +63,6 @@ void eventTest01()
     std::cout << "printEventHandler2 will change 'Hello, world!' to 'Goodbye, world!'\n";
     printEvent.add(printEventHandler2);
 
-
     // call the event with 'Hello, world!'
     std::cout << "Calling printEvent with 'Hello, world!' as argument\n";
     printEvent.call("Hello, world!");
@@ -101,8 +99,7 @@ void iabilityTest1()
     // remove the buff from the unit
     // confirm the iability is not on the unit
     // confirm the iability event is not registered on the currGS.
-
-
+    return;
 }
 
 
@@ -168,4 +165,5 @@ int main()
     //eventTest01();
 
     iabilityTest1();
+
 }
