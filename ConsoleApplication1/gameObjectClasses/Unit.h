@@ -3,6 +3,8 @@
 #include "Item.h"
 #include "Mod.h"
 #include "Buff.h"
+
+class Buff;
 class Unit :
     public GameObject
 {

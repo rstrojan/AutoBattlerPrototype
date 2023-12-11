@@ -44,6 +44,16 @@
         "tagKeyList": [
             "FedThisTurn"
         ]
+    },
+    "decrement": {
+        "durability": 1,
+        "modKeyList": [
+            "-1 Durability"
+        ],
+        "abilityKeyList": [
+        ],
+        "tagKeyList": [
+        ]
     }
 
 }

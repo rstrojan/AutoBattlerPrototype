@@ -24,9 +24,9 @@ public:
 	//Basic methods
 	std::string getChoiceDetailString();
 	std::map<std::string, std::string>& getSlotDetailMap();
-	void addTags(std::multimap<std::string, std::shared_ptr<GameObject>> tagsToAdd);
-	void removeTags(std::multimap<std::string, std::shared_ptr<GameObject>> tagsToRemove);
-	int tagCount(std::string tag);
+	void virtual addTags(std::multimap<std::string, std::shared_ptr<GameObject>> tagsToAdd);
+	void virtual removeTags(std::multimap<std::string, std::shared_ptr<GameObject>> tagsToRemove);
+	int virtual tagCount(std::string tag);
 
 
 protected:

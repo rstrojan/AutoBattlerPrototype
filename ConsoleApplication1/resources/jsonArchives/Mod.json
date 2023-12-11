@@ -18,5 +18,10 @@
         "stat": "MOD_DEFENSE",
         "type": "ADD",
         "value": 1.0
+    },
+    "-1 Durability": {
+        "stat": "durability",
+        "type": "SUBTRACT",
+        "value": 1.0
     }
 }

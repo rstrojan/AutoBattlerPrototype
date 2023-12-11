@@ -7,6 +7,7 @@
 #include "sys/PrntScrn.h"
 #include "sys/Events.h"
 #include "modeAndStateClasses/GM_Campaign.h"
+#include "modeAndStateClasses/GS_Campaign.h"
 #include "gameObjectClasses/GameObject.h"
 #include "gameObjectClasses/Mod.h"
 #include "gameObjectClasses/Item.h"
@@ -16,6 +17,12 @@
 #include "gameObjectClasses/RuleSet.h"
 #include "gameObjectClasses/Buff.h"
 #include "gameObjectClasses/Consumable.h"
+#include "interfaceClasses/IAbility.h"
+#include "interfaceClasses/IAbilityFactory.h"
+#include"gameObjectClasses/Base_IAbility.h"
+#include "interfaceClasses/IAbilityClasses/Decrement.h"
+#include "interfaceClasses/IAbilityClasses/DecrementFactory.h"
+#include "sys/IAbilityDirector.h"
 
 void printBreak()
 {
@@ -56,7 +63,6 @@ void eventTest01()
     std::cout << "printEventHandler2 will change 'Hello, world!' to 'Goodbye, world!'\n";
     printEvent.add(printEventHandler2);
 
-
     // call the event with 'Hello, world!'
     std::cout << "Calling printEvent with 'Hello, world!' as argument\n";
     printEvent.call("Hello, world!");
@@ -76,6 +82,23 @@ void eventTest01()
     printEvent.call("Hello, world!");
 
 
+    return;
+}
+
+void iabilityTest1()
+{
+    //You need to create the ability
+    std::shared_ptr<Unit> myUnit = std::make_shared<Unit> ("TestUnit");
+    std::shared_ptr<IAbility> myIAbility = IAbilityDirector::getIAbility("Decrement", myUnit);
+    // add the ability to a buff
+    // confirm the ability is in the buff
+    // add the buff to the unit
+    // confirm the iability is on the unit
+    // confirm the iability event is registered on the currGS.
+    // trigger the ability
+    // remove the buff from the unit
+    // confirm the iability is not on the unit
+    // confirm the iability event is not registered on the currGS.
     return;
 }
 
@@ -139,5 +162,8 @@ int main()
 
     //itemListTest();
 
-    eventTest01();
+    //eventTest01();
+
+    iabilityTest1();
+
 }

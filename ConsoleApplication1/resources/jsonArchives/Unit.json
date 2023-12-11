@@ -8,10 +8,10 @@
             "testTag",
             "testTag2"
         ],
-		"buffKeyList": [
-		],
-		"statMap": [
-		            {
+        "buffKeyList": [
+        ],
+        "statMap": [
+                    {
                 "key": "BASE_ATTACK",
                 "value": 5
             },
@@ -27,11 +27,13 @@
                 "key": "level",
                 "value": 1
             }
-		],
-		"itemKeyList": [
+        ],
+        "itemKeyList": [
+        ],
+		"iabilityKeyList": [
 		]
     },
-	    "James": {
+        "James": {
         "type": "Mouse",
         "modKeyList": [
             
@@ -40,10 +42,10 @@
             "testTag",
             "testTag2"
         ],
-		"buffKeyList": [
-		],
-		"statMap": [
-		            {
+        "buffKeyList": [
+        ],
+        "statMap": [
+                    {
                 "key": "BASE_ATTACK",
                 "value": 5
             },
@@ -59,11 +61,13 @@
                 "key": "level",
                 "value": 1
             }
-		],
-		"itemKeyList": [
+        ],
+        "itemKeyList": [
+        ],
+		"iabilityKeyList": [
 		]
     },
-	    "Ryan": {
+        "Ryan": {
         "type": "Mouse",
         "modKeyList": [
             
@@ -72,45 +76,10 @@
             "testTag",
             "testTag2"
         ],
-		"buffKeyList": [
-		],
-		"statMap": [
-		            {
-                "key": "BASE_ATTACK",
-                "value": 5
-            },
-            {
-                "key": "BASE_DEFENSE",
-                "value": 0
-            },
-            {
-                "key": "BASE_HITPOINTS",
-                "value": 10
-            },
-            {
-                "key": "level",
-                "value": 1
-            },
-			{	"key": "durability",
-				"value": 3,
-			}
-		],
-		"itemKeyList": [
-		]
-    },
-	    "Thomas": {
-        "type": "Mouse",
-        "modKeyList": [
-            
+        "buffKeyList": [
         ],
-        "tagKeyList": [
-            "testTag",
-            "testTag2"
-        ],
-		"buffKeyList": [
-		],
-		"statMap": [
-		            {
+        "statMap": [
+                    {
                 "key": "BASE_ATTACK",
                 "value": 5
             },
@@ -126,11 +95,13 @@
                 "key": "level",
                 "value": 1
             }
-		],
-		"itemKeyList": [
+        ],
+        "itemKeyList": [
+        ],
+		"iabilityKeyList": [
 		]
     },
-	    "Nicole": {
+        "Thomas": {
         "type": "Mouse",
         "modKeyList": [
             
@@ -139,10 +110,10 @@
             "testTag",
             "testTag2"
         ],
-		"buffKeyList": [
-		],
-		"statMap": [
-		            {
+        "buffKeyList": [
+        ],
+        "statMap": [
+                    {
                 "key": "BASE_ATTACK",
                 "value": 5
             },
@@ -158,11 +129,13 @@
                 "key": "level",
                 "value": 1
             }
-		],
-		"itemKeyList": [
+        ],
+        "itemKeyList": [
+        ],
+		"iabilityKeyList": [
 		]
     },
-	    "Jacob": {
+        "Nicole": {
         "type": "Mouse",
         "modKeyList": [
             
@@ -171,10 +144,10 @@
             "testTag",
             "testTag2"
         ],
-		"buffKeyList": [
-		],
-		"statMap": [
-		            {
+        "buffKeyList": [
+        ],
+        "statMap": [
+                    {
                 "key": "BASE_ATTACK",
                 "value": 5
             },
@@ -190,11 +163,13 @@
                 "key": "level",
                 "value": 1
             }
-		],
-		"itemKeyList": [
+        ],
+        "itemKeyList": [
+        ],
+		"iabilityKeyList": [
 		]
     },
-	    "Jeremy": {
+        "Jacob": {
         "type": "Mouse",
         "modKeyList": [
             
@@ -203,10 +178,10 @@
             "testTag",
             "testTag2"
         ],
-		"buffKeyList": [
-		],
-		"statMap": [
-		            {
+        "buffKeyList": [
+        ],
+        "statMap": [
+                    {
                 "key": "BASE_ATTACK",
                 "value": 5
             },
@@ -222,8 +197,44 @@
                 "key": "level",
                 "value": 1
             }
-		],
-		"itemKeyList": [
+        ],
+        "itemKeyList": [
+        ],
+		"iabilityKeyList": [
+		]
+    },
+        "Jeremy": {
+        "type": "Mouse",
+        "modKeyList": [
+            
+        ],
+        "tagKeyList": [
+            "testTag",
+            "testTag2"
+        ],
+        "buffKeyList": [
+        ],
+        "statMap": [
+                    {
+                "key": "BASE_ATTACK",
+                "value": 5
+            },
+            {
+                "key": "BASE_DEFENSE",
+                "value": 0
+            },
+            {
+                "key": "BASE_HITPOINTS",
+                "value": 10
+            },
+            {
+                "key": "level",
+                "value": 1
+            }
+        ],
+        "itemKeyList": [
+        ],
+		"iabilityKeyList": [
 		]
     }
 }

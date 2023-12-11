@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 #include "Mod.h"
+#include "../sys/IAbilityDirector.h"
+
 
 class Buff :
     public GameObject
